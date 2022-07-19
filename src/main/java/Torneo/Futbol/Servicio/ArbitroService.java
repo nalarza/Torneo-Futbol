@@ -19,5 +19,11 @@ public class ArbitroService {
     public Arbitro añadirArbitro (@RequestBody Arbitro arbitro){
         return arbitroRepositorio.save(arbitro);
     }
+    public Arbitro actualizar(@RequestBody Arbitro arbitro){
+        return arbitroRepositorio.save(arbitro);
+    }
+    public void eliminar (@RequestBody Arbitro arbitro){
+        arbitroRepositorio.delete(arbitro);
+    }
 
 }

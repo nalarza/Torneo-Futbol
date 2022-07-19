@@ -35,5 +35,8 @@ public class TorneoControlador {
     public List<Arbitro> listarArbitros(){
         return this.arbitroService.listarArbitros();
     }
-
+    @DeleteMapping(path = "/elimarArbitro")
+    public void eliminar(@RequestBody Arbitro arbitro){
+        arbitroService.eliminar(arbitro);
+    }
 }
