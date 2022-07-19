@@ -42,4 +42,9 @@ public class TorneoControlador {
 
 
     }
+    @PutMapping(path = "/actualizarArbitro")
+    public @ResponseBody String actualizarArbitro(@RequestBody Arbitro arbitro){
+        arbitroService.actualizar(arbitro);
+        return "Actualizado";
+    }
 }
