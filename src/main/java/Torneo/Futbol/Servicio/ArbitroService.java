@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @Service
-public class ArbitroServicio {
+public class ArbitroService {
     @Autowired
     ArbitroRepositorio arbitroRepositorio;
 
