@@ -38,5 +38,8 @@ public class TorneoControlador {
     @DeleteMapping(path = "/elimarArbitro")
     public void eliminar(@RequestBody Arbitro arbitro){
         arbitroService.eliminar(arbitro);
+
+
+
     }
 }
