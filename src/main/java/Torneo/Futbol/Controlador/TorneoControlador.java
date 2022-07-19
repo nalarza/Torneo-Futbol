@@ -45,6 +45,6 @@ public class TorneoControlador {
         return "Actualizado";
     }
     public void cristian(){
-        
+        //metodo por implementar y esta bueno
     }
 }
