@@ -38,13 +38,13 @@ public class TorneoControlador {
     @DeleteMapping(path = "/elimarArbitro")
     public void eliminar(@RequestBody Arbitro arbitro){
         arbitroService.eliminar(arbitro);
-
-
-
     }
     @PutMapping(path = "/actualizarArbitro")
     public @ResponseBody String actualizarArbitro(@RequestBody Arbitro arbitro){
         arbitroService.actualizar(arbitro);
         return "Actualizado";
+    }
+    public void cristian(){
+        
     }
 }
