@@ -13,7 +13,8 @@ public class Equipo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_equipo",unique = true,nullable = false)
     private int id;
-
+    @Column(name = "nombre")
+    private String nombreDelEquipo;
     @JsonIgnore
     @OneToMany(mappedBy = "equipo",cascade = CascadeType.ALL)
     private List<Jugador> jugadores = new ArrayList<>();
@@ -22,6 +23,14 @@ public class Equipo {
     private String nacionalidad;
 
     public Equipo() {
+    }
+
+    public String getNombreDelEquipo() {
+        return nombreDelEquipo;
+    }
+
+    public void setNombreDelEquipo(String nombreDelEquipo) {
+        this.nombreDelEquipo = nombreDelEquipo;
     }
 
     public int getId() {
