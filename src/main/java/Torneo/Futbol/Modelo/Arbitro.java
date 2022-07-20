@@ -60,6 +60,5 @@ public class Arbitro {
         this.pais = pais;
     }
 
-    //esta es una prueba
-    //Esta es un a respuesta
+
 }
