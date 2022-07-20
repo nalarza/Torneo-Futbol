@@ -1,5 +1,8 @@
 package Torneo.Futbol.Modelo;
 
-public class Suplente extends Jugador{
+import javax.persistence.Entity;
 
+@Entity
+public class Suplente extends Jugador{
+//esto es una prueba
 }
