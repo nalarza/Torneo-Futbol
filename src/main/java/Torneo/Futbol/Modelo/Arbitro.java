@@ -59,4 +59,6 @@ public class Arbitro {
     public void setPais(Pais pais) {
         this.pais = pais;
     }
+
+    //esta es una prueba
 }
