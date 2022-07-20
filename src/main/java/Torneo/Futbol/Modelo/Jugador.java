@@ -12,8 +12,9 @@ public class Jugador {
     private String nombre;
     private String apellido;
     private String numero;
-    @ManyToOne
-    @JoinColumn(name = "id_equipo")
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_equipo",nullable = false)
     private Equipo equipo;
 
     public Equipo getEquipo() {

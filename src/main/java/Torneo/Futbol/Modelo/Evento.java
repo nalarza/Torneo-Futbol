@@ -27,4 +27,15 @@ public class Evento {
     public void setEventoDeJuego(String eventoDeJuego) {
         this.eventoDeJuego = eventoDeJuego;
     }
+
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    private Estadistica estadistica;
+
+    public Estadistica getEstadistica() {
+        return estadistica;
+    }
+
+    public void setEstadistica(Estadistica estadistica) {
+        this.estadistica = estadistica;
+    }
 }

@@ -2,11 +2,13 @@ package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Arbitro;
 import Torneo.Futbol.Modelo.Equipo;
+import Torneo.Futbol.Modelo.Jugador;
 import Torneo.Futbol.Servicio.ArbitroService;
 import Torneo.Futbol.Servicio.EquipoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -43,8 +45,5 @@ public class TorneoControlador {
     public @ResponseBody String actualizarArbitro(@RequestBody Arbitro arbitro){
         arbitroService.actualizar(arbitro);
         return "Actualizado";
-    }
-    public void cristian(){
-        //metodo por implementar y esta bueno
     }
 }

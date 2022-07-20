@@ -1,6 +1,7 @@
 package Torneo.Futbol.Modelo;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "estadio")
@@ -34,5 +35,17 @@ public class Estadio {
 
     public void setCapacidad(String capacidad) {
         this.capacidad = capacidad;
+    }
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estadio")
+    private Collection<Partido> partidos;
+
+    public Collection<Partido> getPartidos() {
+        return partidos;
+    }
+
+    public void setPartidos(Collection<Partido> partidos) {
+        this.partidos = partidos;
     }
 }

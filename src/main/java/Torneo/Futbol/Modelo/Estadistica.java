@@ -1,6 +1,7 @@
 package Torneo.Futbol.Modelo;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "estadistica")
@@ -35,5 +36,27 @@ public class Estadistica {
 
     public void setMinutoDeJuego(String minutoDeJuego) {
         this.minutoDeJuego = minutoDeJuego;
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Partido partidos;
+
+    public Partido getPartidos() {
+        return partidos;
+    }
+
+    public void setPartidos(Partido partidos) {
+        this.partidos = partidos;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estadistica")
+    private Collection<Evento> evento;
+
+    public Collection<Evento> getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Collection<Evento> evento) {
+        this.evento = evento;
     }
 }

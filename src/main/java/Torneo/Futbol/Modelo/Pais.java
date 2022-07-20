@@ -2,6 +2,7 @@ package Torneo.Futbol.Modelo;
 
 import javax.persistence.*;
 import java.lang.annotation.Target;
+import java.util.Collection;
 
 @Entity
 @Table(name = "pais")
@@ -26,5 +27,28 @@ public class Pais {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pais")
+    private Collection<Equipo> equipos;
+
+    public Collection<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(Collection<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pais")
+    private Collection<Arbitro> arbitros;
+
+    public Collection<Arbitro> getArbitros() {
+        return arbitros;
+    }
+
+    public void setArbitros(Collection<Arbitro> arbitros) {
+        this.arbitros = arbitros;
     }
 }

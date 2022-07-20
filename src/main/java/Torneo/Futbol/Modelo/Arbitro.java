@@ -1,6 +1,7 @@
 package Torneo.Futbol.Modelo;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "arbitro")
@@ -34,5 +35,28 @@ public class Arbitro {
 
     public void setProcedencia(String procedencia) {
         this.procedencia = procedencia;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "arbitro")
+    private Collection<Partido> partido;
+
+    public Collection<Partido> getPartido() {
+        return partido;
+    }
+
+    public void setPartido(Collection<Partido> partido) {
+        this.partido = partido;
+    }
+
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Pais pais;
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 }
