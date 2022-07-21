@@ -8,7 +8,7 @@ import Torneo.Futbol.Servicio.EquipoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
@@ -16,7 +16,7 @@ import java.util.List;
 public class TorneoControlador {
     @Autowired
     EquipoService equipoService;
-    @PostMapping(path = "/DatosDeEquipo")
+    @PostMapping(path = "/agregarDeEquipo")
     public @ResponseBody String nuevoEquipo(@RequestBody Equipo equipo){
         equipoService.añadirEquipo(equipo);
         return "Guardado";
@@ -28,7 +28,7 @@ public class TorneoControlador {
 
     @Autowired
     ArbitroService arbitroService;
-    @PostMapping(path = "/añadirArbitro")
+    @PostMapping(path = "/agregarArbitro")
     public @ResponseBody String añadirArbitro(@RequestBody Arbitro arbitro){
         arbitroService.añadirArbitro(arbitro);
         return "Arbitro Añadido";
