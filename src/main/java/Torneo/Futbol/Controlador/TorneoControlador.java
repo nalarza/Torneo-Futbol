@@ -2,6 +2,7 @@ package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Arbitro;
 import Torneo.Futbol.Modelo.Equipo;
+import Torneo.Futbol.Modelo.Jugador;
 import Torneo.Futbol.Servicio.ArbitroService;
 import Torneo.Futbol.Servicio.EquipoService;
 import Torneo.Futbol.Servicio.JugadorService;
@@ -51,7 +52,7 @@ public class TorneoControlador {
     JugadorService jugadorService;
     @PostMapping(path = "/añadirJugador")
     public @ResponseBody String añadirJugador (@RequestBody Jugador jugador){
-        jugadorService.añadirJugador(jugador);
+        jugadorService.agreagrJugador(jugador);
         return "Jugador Añadido";
     }
 }
