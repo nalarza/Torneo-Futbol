@@ -75,6 +75,6 @@ public class TorneoControlador {
 
     private List<Pais> listarPais() {
 
-        return null;
+        return this.paisService.listarPais();
     }
 }
