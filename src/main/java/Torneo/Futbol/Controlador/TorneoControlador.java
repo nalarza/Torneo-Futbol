@@ -46,4 +46,5 @@ public class TorneoControlador {
         arbitroService.actualizar(arbitro);
         return "Actualizado";
     }
+    
 }
