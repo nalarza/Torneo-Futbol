@@ -2,7 +2,6 @@ package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Arbitro;
 import Torneo.Futbol.Modelo.Equipo;
-import Torneo.Futbol.Modelo.Jugador;
 import Torneo.Futbol.Servicio.ArbitroService;
 import Torneo.Futbol.Servicio.EquipoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class TorneoControlador {
     EquipoService equipoService;
     @PostMapping(path = "/agregarDeEquipo")
     public @ResponseBody String nuevoEquipo(@RequestBody Equipo equipo){
-        equipoService.añadirEquipo(equipo);
+        equipoService.agregarEquipo(equipo);
         return "Guardado";
     }
     @GetMapping(path = "/DatosDeEquipo")
@@ -29,8 +28,8 @@ public class TorneoControlador {
     @Autowired
     ArbitroService arbitroService;
     @PostMapping(path = "/agregarArbitro")
-    public @ResponseBody String añadirArbitro(@RequestBody Arbitro arbitro){
-        arbitroService.añadirArbitro(arbitro);
+    public @ResponseBody String agregarArbitro(@RequestBody Arbitro arbitro){
+        arbitroService.agregarArbitro(arbitro);
         return "Arbitro Añadido";
     }
     @GetMapping(path = "/datosDeArbitro")
