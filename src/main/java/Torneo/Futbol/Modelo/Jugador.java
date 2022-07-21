@@ -17,6 +17,10 @@ public class Jugador {
     @JoinColumn(name = "id_equipo",nullable = false)
     private Equipo equipo;
 
+    public String ObtenerInformacion(){
+      return   this.nombre+"nombre"+this.apellido+"apellido"+this.numero+"numero";
+    }
+
     public Equipo getEquipo() {
         return equipo;
     }
