@@ -15,7 +15,7 @@ public class JugadorService {
     public List<Jugador> listarJugador(){
         return (List<Jugador>) jugadorRepositorio.findAll();
     }
-    public Jugador añadirJugador (@RequestBody Jugador jugador){
+    public Jugador agreagrJugador (@RequestBody Jugador jugador){
         return jugadorRepositorio.save(jugador);
     }
 }

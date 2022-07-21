@@ -15,7 +15,10 @@ public class EquipoService {
     public List<Equipo> listarEquipo(){
         return (List<Equipo>) equipoRepositorio.findAll();
     }
-    public Equipo añadirEquipo (@RequestBody Equipo equipo){
+    public Equipo agregarEquipo(@RequestBody Equipo equipo){
         return equipoRepositorio.save(equipo);
+    }
+
+    public void añadirEquipo(Equipo equipo) {
     }
 }

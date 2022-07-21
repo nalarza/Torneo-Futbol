@@ -2,14 +2,13 @@ package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Arbitro;
 import Torneo.Futbol.Modelo.Equipo;
-import Torneo.Futbol.Modelo.Jugador;
 import Torneo.Futbol.Modelo.Pais;
 import Torneo.Futbol.Servicio.ArbitroService;
 import Torneo.Futbol.Servicio.EquipoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
@@ -20,9 +19,14 @@ public class TorneoControlador {
     private TorneoControlador paisService;
 
     @PostMapping(path = "/DatosDeEquipo")
-    public @ResponseBody
-    String nuevoEquipo(@RequestBody Equipo equipo) {
-        equipoService.añadirEquipo(equipo);
+    public @ResponseBody String NuevoEquipo (@RequestBody Equipo equipo) {
+        equipoService.agregarEquipo(equipo);
+        return "Equipo Guardado";
+    }
+
+    @PostMapping(path = "/agregarDeEquipo")
+    public @ResponseBody String nuevoEquipo(@RequestBody Equipo equipo){
+        equipoService.agregarEquipo(equipo);
         return "Guardado";
     }
 
@@ -33,11 +37,14 @@ public class TorneoControlador {
 
     @Autowired
     ArbitroService arbitroService;
-
     @PostMapping(path = "/añadirArbitro")
-    public @ResponseBody
-    String añadirArbitro(@RequestBody Arbitro arbitro) {
-        arbitroService.añadirArbitro(arbitro);
+    public @ResponseBody String añadirArbitro(@RequestBody Arbitro arbitro) {
+        arbitroService.agregarArbitro(arbitro);
+        return "Arbitro Guardado";}
+
+    @PostMapping(path = "/agregarArbitro")
+    public @ResponseBody String agregarArbitro(@RequestBody Arbitro arbitro){
+        arbitroService.agregarArbitro(arbitro);
         return "Arbitro Añadido";
     }
 
@@ -52,8 +59,7 @@ public class TorneoControlador {
     }
 
     @PutMapping(path = "/actualizarArbitro")
-    public @ResponseBody
-    String actualizarArbitro(@RequestBody Arbitro arbitro) {
+    public @ResponseBody String actualizarArbitro(@RequestBody Arbitro arbitro) {
         arbitroService.actualizar(arbitro);
         return "Actualizado";
     }
@@ -61,7 +67,7 @@ public class TorneoControlador {
     @Autowired
     ArbitroService PaisService;
 
-    @PostMapping(path = "/agregarPais")
+    @PostMapping(path = "/añadirPais")
     public @ResponseBody
     String añadirPais(@RequestBody Pais pais) {
         paisService.añadirPais(pais);
@@ -75,6 +81,6 @@ public class TorneoControlador {
 
     private List<Pais> listarPais() {
 
-        return this.paisService.listarPais();
+        return null;
     }
 }

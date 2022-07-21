@@ -15,7 +15,7 @@ public class GrupoService {
     public List<Grupo> listarGrupos(){
         return (List<Grupo>) grupoRepositorio.findAll();
     }
-    public Grupo añadirGrupo(@RequestBody Grupo grupo){
+    public Grupo agregarGrupo(@RequestBody Grupo grupo){
         return grupoRepositorio.save(grupo);
     }
 }

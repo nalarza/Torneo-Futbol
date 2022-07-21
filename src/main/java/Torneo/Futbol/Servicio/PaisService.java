@@ -15,7 +15,7 @@ public class PaisService {
     public List<Pais> listarPais(){
         return (List<Pais>) paisRepositorio.findAll();
     }
-    public Pais añadirPais(@RequestBody Pais pais){
+    public Pais agregarPais(@RequestBody Pais pais){
         return paisRepositorio.save(pais);
     }
 

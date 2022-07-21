@@ -17,7 +17,7 @@ public class ArbitroService {
     public List<Arbitro> listarArbitros(){
         return (List<Arbitro>) arbitroRepositorio.findAll();
     }
-    public Arbitro añadirArbitro (@RequestBody Arbitro arbitro){
+    public Arbitro agregarArbitro(@RequestBody Arbitro arbitro){
         return arbitroRepositorio.save(arbitro);
     }
     public Arbitro actualizar(@RequestBody Arbitro arbitro){
