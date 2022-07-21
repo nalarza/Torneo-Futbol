@@ -44,5 +44,7 @@ public class TorneoControlador {
     public @ResponseBody String actualizarArbitro(@RequestBody Arbitro referre){
         arbitroService.actualizar(referre);
         return "Actualizado";
+
+        //anotacion
     }
 }
