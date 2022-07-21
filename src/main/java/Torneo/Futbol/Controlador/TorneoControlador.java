@@ -61,7 +61,7 @@ public class TorneoControlador {
     @Autowired
     ArbitroService PaisService;
 
-    @PostMapping(path = "/añadirPais")
+    @PostMapping(path = "/agregarPais")
     public @ResponseBody
     String añadirPais(@RequestBody Pais pais) {
         paisService.añadirPais(pais);
