@@ -5,6 +5,7 @@ import Torneo.Futbol.Modelo.Equipo;
 import Torneo.Futbol.Modelo.Jugador;
 import Torneo.Futbol.Servicio.ArbitroService;
 import Torneo.Futbol.Servicio.EquipoService;
+import Torneo.Futbol.Servicio.JugadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,5 +47,12 @@ public class TorneoControlador {
         arbitroService.actualizar(arbitro);
         return "Actualizado";
     }
-    
+
+    @Autowired
+    JugadorService jugadorService;
+    @PostMapping(path = "/añadirJugador")
+    public @ResponseBody String añadirJugador (@RequestBody Jugador jugador){
+        jugadorService.añadirJugador(jugador);
+        return "Jugador Añadido";
+    }
 }
