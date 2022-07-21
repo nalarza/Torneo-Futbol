@@ -51,4 +51,5 @@ public class Pais {
     public void setArbitros(Collection<Arbitro> arbitros) {
         this.arbitros = arbitros;
     }
+
 }

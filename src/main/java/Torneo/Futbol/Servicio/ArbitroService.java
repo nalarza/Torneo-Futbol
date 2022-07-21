@@ -1,6 +1,7 @@
 package Torneo.Futbol.Servicio;
 
 import Torneo.Futbol.Modelo.Arbitro;
+import Torneo.Futbol.Modelo.Pais;
 import Torneo.Futbol.Repositorio.ArbitroRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,4 +27,6 @@ public class ArbitroService {
         arbitroRepositorio.delete(arbitro);
     }
 
+    public void añadirPais(Pais pais) {
+    }
 }
