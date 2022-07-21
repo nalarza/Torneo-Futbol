@@ -15,7 +15,7 @@ public class EstadisticaService {
     public List<Estadistica> listarEstadisticas(){
         return estadisticaRepositorio.findAll();
     }
-    public Estadistica añadisEstadisticas(@RequestBody Estadistica estadistica){
+    public Estadistica agregarEstadisticas(@RequestBody Estadistica estadistica){
         return estadisticaRepositorio.save(estadistica);
     }
 }

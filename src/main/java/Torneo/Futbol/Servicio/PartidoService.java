@@ -15,7 +15,7 @@ public class PartidoService {
     public List<Partido> listarPartodos(){
         return (List<Partido>) partidoRepositorio.findAll();
     }
-    public Partido añadirPartido (@RequestBody Partido partido){
+    public Partido agregarPartido (@RequestBody Partido partido){
         return partidoRepositorio.save(partido);
     }
 }
