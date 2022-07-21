@@ -6,5 +6,6 @@ public class Suplente {
     private String nacionalidad;
 
     public Suplente(){}
+
     
 }
