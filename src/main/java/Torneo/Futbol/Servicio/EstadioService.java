@@ -15,7 +15,7 @@ public class EstadioService {
     public List<Estadio> listarEstadio(){
         return (List<Estadio>) estadioRepositorio.findAll();
     }
-    public Estadio añadirEstadio(@RequestBody Estadio estadio){
+    public Estadio agregarEstadio(@RequestBody Estadio estadio){
         return estadioRepositorio.save(estadio);
     }
 }
