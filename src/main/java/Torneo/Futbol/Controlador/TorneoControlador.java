@@ -41,10 +41,9 @@ public class TorneoControlador {
         arbitroService.eliminar(arbitro);
     }
     @PutMapping(path = "/actualizarArbitro")
-    public @ResponseBody String actualizarArbitro(@RequestBody Arbitro referre){
-        arbitroService.actualizar(referre);
+    public @ResponseBody String actualizarArbitro(@RequestBody Arbitro arbitro) {
+        arbitroService.actualizar(arbitro);
         return "Actualizado";
-
         //anotacion
     }
 }
