@@ -17,9 +17,19 @@ public class Jugador {
     @JoinColumn(name = "id_equipo",nullable = false)
     private Equipo equipo;
 
-    public Equipo getEquipo() {
-        return equipo;
+    public Jugador() {
+
     }
+
+    public Jugador(String nombre, String apellido, String numero) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.numero = numero;
+    }
+
+    public String ObtenerInformacion(){
+       return this.nombre+"nombre"+this.apellido+"apellido"+this.numero+"numero";
+   }
 
     public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
