@@ -29,6 +29,7 @@ public class Evento {
     }
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "id_estadistica",nullable = false)
     private Estadistica estadistica;
 
     public Estadistica getEstadistica() {

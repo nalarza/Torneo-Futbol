@@ -17,7 +17,7 @@ public class Equipo {
     @Column(name = "nombre")
     private String nombreDelEquipo;
 
-    @JsonIgnore
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipo")
     private List<Jugador> jugadores = new ArrayList<>();
 
@@ -29,11 +29,33 @@ public class Equipo {
     public Equipo() {
     }
 
-    public Equipo(String nombreDelEquipo, String entrenador, String logo, String nacionalidad) {
+    public Equipo(String nombreDelEquipo, String entrenador, String nacionalidad) {
         this.nombreDelEquipo = nombreDelEquipo;
+        this.entrenador = entrenador;
+        this.nacionalidad = nacionalidad;
+    }
+
+    public Equipo(int id, String nombreDelEquipo, List<Jugador> jugadores, String entrenador,
+                  String logo, String nacionalidad, Collection<Partido> partidos, Pais pais, Grupo grupo) {
+        this.id = id;
+        this.nombreDelEquipo = nombreDelEquipo;
+        this.jugadores = jugadores;
         this.entrenador = entrenador;
         this.logo = logo;
         this.nacionalidad = nacionalidad;
+        this.partidos = partidos;
+        this.pais = pais;
+        this.grupo = grupo;
+    }
+
+    public long informacion(long dinero){
+        return dinero;
+    }
+    public String informacion(String estadio){
+        return estadio;
+    }
+    public String informacio(String colorDelPrimerUniforme, String colorDelSegundoUniforme){
+        return informacio(colorDelPrimerUniforme,colorDelSegundoUniforme);
     }
 
     public void setJugadores(Collection<Jugador> jugadores) {
@@ -101,6 +123,7 @@ public class Equipo {
     }
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_pais",nullable = false)
     private Pais pais;
 
     public Pais getPais() {
@@ -112,6 +135,7 @@ public class Equipo {
     }
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_grupo",nullable = false)
     private Grupo grupo;
 
     public Grupo getGrupo() {

@@ -50,6 +50,7 @@ public class Arbitro {
 
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_pais",nullable = false)
     private Pais pais;
 
     public Pais getPais() {

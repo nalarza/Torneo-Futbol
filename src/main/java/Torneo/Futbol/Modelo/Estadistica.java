@@ -39,6 +39,7 @@ public class Estadistica {
     }
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_partido",nullable = false)
     private Partido partidos;
 
     public Partido getPartidos() {

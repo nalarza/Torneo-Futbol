@@ -27,6 +27,14 @@ public class Jugador {
         this.numero = numero;
     }
 
+    public Jugador(int id, String nombre, String apellido, String numero, Equipo equipo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.numero = numero;
+        this.equipo = equipo;
+    }
+
     public String ObtenerInformacion(){
        return this.nombre+"nombre"+this.apellido+"apellido"+this.numero+"numero";
    }
