@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ArbitroRepositorio extends JpaRepository<Arbitro,Integer> {
     //prueba
+    //Response(ponse)
 }
