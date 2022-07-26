@@ -18,4 +18,6 @@ public class EstadioService {
     public Estadio agregarEstadio(@RequestBody Estadio estadio){
         return estadioRepositorio.save(estadio);
     }
+    public Estadio actualizar(@RequestBody Estadio estadio){return estadioRepositorio.save(estadio);}
+    public void eliminarId(Integer id){estadioRepositorio.deleteById(id);}
 }

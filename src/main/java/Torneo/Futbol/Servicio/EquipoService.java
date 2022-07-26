@@ -15,7 +15,7 @@ public class EquipoService {
     public List<Equipo> listarEquipo(){
         return (List<Equipo>) equipoRepositorio.findAll();
     }
-    public Equipo agregarEquipo(@RequestBody Equipo equipo){
-        return equipoRepositorio.save(equipo);
-    }
+    public Equipo agregarEquipo(@RequestBody Equipo equipo){return equipoRepositorio.save(equipo);}
+    public Equipo actualizar(@RequestBody Equipo equipo){return equipoRepositorio.save(equipo);}
+    public void eliminarId(Integer id){equipoRepositorio.deleteById(id);}
 }

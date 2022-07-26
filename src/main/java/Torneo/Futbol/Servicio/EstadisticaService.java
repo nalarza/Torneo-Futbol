@@ -15,7 +15,7 @@ public class EstadisticaService {
     public List<Estadistica> listarEstadisticas(){
         return estadisticaRepositorio.findAll();
     }
-    public Estadistica agregarEstadisticas(@RequestBody Estadistica estadistica){
-        return estadisticaRepositorio.save(estadistica);
-    }
+    public Estadistica agregarEstadisticas(@RequestBody Estadistica estadistica){return estadisticaRepositorio.save(estadistica);}
+    public Estadistica actualizar(@RequestBody Estadistica estadistica){return estadisticaRepositorio.save(estadistica);}
+    public void eliminarId(Integer id){estadisticaRepositorio.deleteById(id);}
 }

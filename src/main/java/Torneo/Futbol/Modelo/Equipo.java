@@ -54,9 +54,7 @@ public class Equipo {
     public String informacion(String estadio){
         return estadio;
     }
-    public String informacio(String colorDelPrimerUniforme, String colorDelSegundoUniforme){
-        return informacio(colorDelPrimerUniforme,colorDelSegundoUniforme);
-    }
+
 
     public void setJugadores(Collection<Jugador> jugadores) {
         this.jugadores = (List<Jugador>) jugadores;
