@@ -42,18 +42,7 @@ public class Equipo {
         this.nacionalidad = nacionalidad;
     }
 
-    public Equipo(int id, String nombreDelEquipo, List<Jugador> jugadores, String entrenador,
-                  String logo, String nacionalidad, Collection<Partido> partidos, Pais pais, Grupo grupo) {
-        this.id = id;
-        this.nombreDelEquipo = nombreDelEquipo;
-        this.jugadores = jugadores;
-        this.entrenador = entrenador;
-        this.logo = logo;
-        this.nacionalidad = nacionalidad;
-        this.partidos = partidos;
-        this.pais = pais;
-        this.grupo = grupo;
-    }
+
 
     public long informacion(long dinero){
         return dinero;
@@ -126,23 +115,19 @@ public class Equipo {
         this.partidos = partidos;
     }
 
-
-
     public Pais getPais() {
         return pais;
     }
 
-    public void setPais(long pais) {
+    public void setPais(Pais pais) {
         this.pais = pais;
     }
-
-
 
     public Grupo getGrupo() {
         return grupo;
     }
 
-    public void setGrupo(long grupo) {
+    public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
 }

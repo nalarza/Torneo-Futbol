@@ -23,8 +23,12 @@ public class TorneoControlador {
         equipo.setEntrenador(equipoRequest.entrenador);
         equipo.setLogo(equipoRequest.logo);
         equipo.setNacionalidad(equipoRequest.nacionalidad);
-        equipo.setPais(equipoRequest.pais);
-        equipo.setGrupo(equipoRequest.grupo);
+        Pais pais = new Pais();
+        pais.setId(equipoRequest.pais);
+        equipo.setPais(pais);
+        Grupo grupo = new Grupo();
+        grupo.setId(equipoRequest.grupo);
+        equipo.setGrupo(grupo);
         equipoService.agregarEquipo(equipo);
         return "Guardado";
     }
