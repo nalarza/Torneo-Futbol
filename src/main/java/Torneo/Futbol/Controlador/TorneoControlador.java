@@ -1,9 +1,6 @@
 package Torneo.Futbol.Controlador;
 
-import Torneo.Futbol.Modelo.Arbitro;
-import Torneo.Futbol.Modelo.Detalles;
-import Torneo.Futbol.Modelo.Equipo;
-import Torneo.Futbol.Modelo.Jugador;
+import Torneo.Futbol.Modelo.*;
 import Torneo.Futbol.Servicio.ArbitroService;
 import Torneo.Futbol.Servicio.EquipoService;
 import Torneo.Futbol.Servicio.JugadorService;
@@ -20,14 +17,15 @@ public class TorneoControlador {
     @Autowired
     EquipoService equipoService;
     @PostMapping(path = "/agregarDeEquipo",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String nuevoEquipo(@RequestBody Equipo equipo){
-        equipoService.agregarEquipo(equipo);
+    public @ResponseBody String nuevoEquipo(@RequestBody EquipoRequest equipoRequest){
+      //  equipoService.agregarEquipo(equipoRequest);
         return "Guardado";
     }
     @GetMapping(path = "/DatosDeEquipo")
     public List<Equipo> todosLosEquipos(){
         return this.equipoService.listarEquipo();
     }
+
 
     @Autowired
     ArbitroService arbitroService;
@@ -67,10 +65,11 @@ public class TorneoControlador {
         Detalles det = new Detalles();
         det.setNombreDelEquipo("Atletico De Madrid");
         det.setEntrenador("Nelson Alarza");
+        det.setLogo("Logotipo");
         det.setCiudad("Madrid");
         det.informacion("Bernabeu");
         det.informacion(1000);
-        det.setMoneda("EUR");
+        det.setMoneda("EURO");
         det.setNacionalidad("España");
         return det;
     }

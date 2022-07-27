@@ -16,15 +16,24 @@ public class Equipo {
     private int id;
     @Column(name = "nombre")
     private String nombreDelEquipo;
-
+    private String entrenador;
+    private String logo;
+    private String nacionalidad;
+   // private long pais;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipo")
     private List<Jugador> jugadores = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipo")
+    private Collection<Partido> partidos;
 
-    private String entrenador;
-    private String logo;
-    private String nacionalidad;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_pais",nullable = false)
+    private Pais pais;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_grupo",nullable = false)
+    private Grupo grupo;
 
     public Equipo() {
     }
@@ -109,8 +118,7 @@ public class Equipo {
     }
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipo")
-    private Collection<Partido> partidos;
+
 
     public Collection<Partido> getPartidos() {
         return partidos;
@@ -120,9 +128,7 @@ public class Equipo {
         this.partidos = partidos;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_pais",nullable = false)
-    private Pais pais;
+
 
     public Pais getPais() {
         return pais;
@@ -132,9 +138,7 @@ public class Equipo {
         this.pais = pais;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_grupo",nullable = false)
-    private Grupo grupo;
+
 
     public Grupo getGrupo() {
         return grupo;
