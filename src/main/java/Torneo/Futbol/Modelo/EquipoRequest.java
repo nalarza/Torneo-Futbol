@@ -1,10 +1,10 @@
 package Torneo.Futbol.Modelo;
 
 public class EquipoRequest {
-    String nombreDelEquipo;
-    String entrenador;
-    String logo;
-    String nacionalidad;
-    long pais;
-    long grupo;
+  public  String nombreDelEquipo;
+   public String entrenador;
+public    String logo;
+public     String nacionalidad;
+public     long pais;
+public     long grupo;
 }

@@ -1,7 +1,5 @@
 package Torneo.Futbol.Modelo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -134,7 +132,7 @@ public class Equipo {
         return pais;
     }
 
-    public void setPais(Pais pais) {
+    public void setPais(long pais) {
         this.pais = pais;
     }
 
@@ -144,7 +142,7 @@ public class Equipo {
         return grupo;
     }
 
-    public void setGrupo(Grupo grupo) {
+    public void setGrupo(long grupo) {
         this.grupo = grupo;
     }
 }

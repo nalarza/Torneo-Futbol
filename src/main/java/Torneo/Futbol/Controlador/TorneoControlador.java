@@ -18,7 +18,14 @@ public class TorneoControlador {
     EquipoService equipoService;
     @PostMapping(path = "/agregarDeEquipo",consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String nuevoEquipo(@RequestBody EquipoRequest equipoRequest){
-      //  equipoService.agregarEquipo(equipoRequest);
+        Equipo equipo = new Equipo();
+        equipo.setNombreDelEquipo(equipoRequest.nombreDelEquipo);
+        equipo.setEntrenador(equipoRequest.entrenador);
+        equipo.setLogo(equipoRequest.logo);
+        equipo.setNacionalidad(equipoRequest.nacionalidad);
+        equipo.setPais(equipoRequest.pais);
+        equipo.setGrupo(equipoRequest.grupo);
+        equipoService.agregarEquipo(equipo);
         return "Guardado";
     }
     @GetMapping(path = "/DatosDeEquipo")
