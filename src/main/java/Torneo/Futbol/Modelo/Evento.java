@@ -12,31 +12,4 @@ public class Evento {
     @Column(name = "evento_de_juego")
     private String eventoDeJuego;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getEventoDeJuego() {
-        return eventoDeJuego;
-    }
-
-    public void setEventoDeJuego(String eventoDeJuego) {
-        this.eventoDeJuego = eventoDeJuego;
-    }
-
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "id_estadistica",nullable = false)
-    private Estadistica estadistica;
-
-    public Estadistica getEstadistica() {
-        return estadistica;
-    }
-
-    public void setEstadistica(Estadistica estadistica) {
-        this.estadistica = estadistica;
-    }
 }
