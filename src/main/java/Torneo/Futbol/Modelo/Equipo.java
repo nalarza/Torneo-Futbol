@@ -17,7 +17,7 @@ public class Equipo {
     private String entrenador;
     private String logo;
     private String nacionalidad;
-   // private long pais;
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipo")
     private List<Jugador> jugadores = new ArrayList<>();
