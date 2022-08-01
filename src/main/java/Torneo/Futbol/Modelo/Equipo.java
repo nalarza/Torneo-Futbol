@@ -1,5 +1,7 @@
 package Torneo.Futbol.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
@@ -19,6 +21,11 @@ public class Equipo {
     @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
     private Set<Jugador> jugadores = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_pais")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Pais pais;
+
     public Equipo() {
     }
 
@@ -28,6 +35,15 @@ public class Equipo {
         this.entrenador = entrenador;
         this.logo = logo;
         this.jugadores = jugadores;
+
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 
     public int getId() {
@@ -72,4 +88,5 @@ public class Equipo {
             jugador.setEquipo(this);
         }
     }
+
 }

@@ -27,10 +27,14 @@ public class EquipoController {
 
     @PostMapping(path = "/AgregarEquipo")
     public ResponseEntity<Equipo> guardarEquipo(@Valid @RequestBody Equipo equipo){
+        try{
         Equipo equipoGuardado = equipoRepositorio.save(equipo);
-        URI ubicacion = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(equipoGuardado.getId()).toUri();
-        return ResponseEntity.created(ubicacion).body(equipoGuardado);
+            URI ubicacion = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(equipoGuardado.getId()).toUri();
+            return ResponseEntity.created(ubicacion).body(equipoGuardado);
+        }catch (Exception e){
+            return new ResponseEntity("El pais no existe",HttpStatus.BAD_REQUEST);
+        }
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Equipo> eliminarEquipo(@PathVariable Integer id){

@@ -20,6 +20,19 @@ public class Jugador {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Equipo equipo;
 
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_pais")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Pais pais;
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
     public Jugador() {
     }
 
