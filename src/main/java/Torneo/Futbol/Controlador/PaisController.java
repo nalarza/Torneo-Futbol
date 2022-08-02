@@ -1,10 +1,8 @@
 package Torneo.Futbol.Controlador;
 
-import Torneo.Futbol.Modelo.Jugador;
 import Torneo.Futbol.Modelo.Pais;
 import Torneo.Futbol.Repositorio.PaisRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,6 +24,10 @@ public class PaisController {
     }
     @GetMapping(path = "/MostrarPaises")
     public ResponseEntity<Iterable<Pais>> listarPaises(){
+        Iterable<Pais> pais = paisRepositorio.findAll();
+            for (Pais p:pais){
+
+            }
         return ResponseEntity.ok(paisRepositorio.findAll());
     }
 }

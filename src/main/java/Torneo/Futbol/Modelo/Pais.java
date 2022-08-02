@@ -19,14 +19,17 @@ public class Pais {
     @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
     private Set<Jugador> jugadores = new HashSet<>();
 
+    @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+    private Set<Arbitro> arbitros = new HashSet<>();
+
+    @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+    private Set<Estadio> estadios = new HashSet<>();
 
     public Pais() {
     }
 
-    public Set<Equipo> getEquipos() {
-        return equipos;
-    }
-
+  //  public Set<Equipo> getEquipos() {
+    //    return equipos;}
 
 
     public int getId() {
@@ -47,6 +50,28 @@ public class Pais {
 
     public Set<Jugador> getJugadores() {
         return jugadores;
+    }
+
+    public Set<Arbitro> getArbitros() {
+        return arbitros;
+    }
+
+    public Set<Estadio> getEstadios() {
+        return estadios;
+    }
+
+    public void setEstadios(Set<Estadio> estadios) {
+        this.estadios = estadios;
+        for (Estadio estadio:estadios){
+            estadio.setPais(this);
+        }
+    }
+
+    public void setArbitros(Set<Arbitro> arbitros) {
+        this.arbitros = arbitros;
+        for (Arbitro arbitro: arbitros){
+            arbitro.setPais(this);
+        }
     }
 
     public void setJugadores(Set<Jugador> jugadores) {

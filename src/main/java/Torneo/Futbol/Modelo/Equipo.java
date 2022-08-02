@@ -18,6 +18,16 @@ public class Equipo {
     private String entrenador;
     private String logo;
 
+    private String paisDelEquipo;
+
+    public String getPaisDelEquipo() {
+        return paisDelEquipo;
+    }
+
+    public void setPaisDelEquipo(String paisDelEquipo) {
+        this.paisDelEquipo = paisDelEquipo;
+    }
+
     @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
     private Set<Jugador> jugadores = new HashSet<>();
 
@@ -29,13 +39,13 @@ public class Equipo {
     public Equipo() {
     }
 
-    public Equipo(int id, String nombre, String entrenador, String logo, Set<Jugador> jugadores) {
+    public Equipo(int id, String nombre, String entrenador, String logo, Set<Jugador> jugadores, Pais pais) {
         this.id = id;
         this.nombre = nombre;
         this.entrenador = entrenador;
         this.logo = logo;
         this.jugadores = jugadores;
-
+        this.pais = pais;
     }
 
     public Pais getPais() {

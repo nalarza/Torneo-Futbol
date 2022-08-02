@@ -2,7 +2,6 @@ package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Equipo;
 import Torneo.Futbol.Repositorio.EquipoRepositorio;
-import org.hibernate.persister.entity.SingleTableEntityPersister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,8 +21,16 @@ public class EquipoController {
     EquipoRepositorio equipoRepositorio;
 
     @GetMapping(path = "/MostrarEquipos")
-    public ResponseEntity<Iterable<Equipo>> listarEquipos(){
-        return ResponseEntity.ok(equipoRepositorio.findAll());
+    public List<Equipo> listarEquipos(){
+        List<Equipo> equipos = (List<Equipo>) equipoRepositorio.findAll();
+        for (Equipo e:equipos){
+            if (equipos.size() >= 0){
+            String paisEquipo = e.getPais().getNombre();
+            e.setPaisDelEquipo(paisEquipo);
+            }
+        }
+       //return ResponseEntity.ok(equipoRepositorio.findAll());
+        return equipos;
     }
 
     @PostMapping(path = "/AgregarEquipo")
