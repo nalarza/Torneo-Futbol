@@ -39,25 +39,21 @@ public class EquipoController {
                 j.setPaisJugador(pais);
             }
         }
-       //return ResponseEntity.ok(equipoRepositorio.findAll());
         return equipos;
     }
 
     @PostMapping(path = "/AgregarEquipo")
     public ResponseEntity<Equipo> guardarEquipo(@Valid @RequestBody Equipo equipo){
         try{
-        Equipo equipoGuardado = equipoRepositorio.save(equipo);
-            URI ubicacion = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(equipoGuardado.getId()).toUri();
-            return ResponseEntity.created(ubicacion).body(equipoGuardado);
+            equipoRepositorio.save(equipo);
+            return new ResponseEntity("Equipo Guardado",HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity("El pais no existe",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("El Pais No Existe",HttpStatus.BAD_REQUEST);
         }
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Equipo> eliminarEquipo(@PathVariable Integer id){
-        Optional<Equipo> equipoOptional = equipoRepositorio.findById(id);
-        equipoRepositorio.delete(equipoOptional.get());
+          equipoRepositorio.deleteById(id);
         return new ResponseEntity("Equipo Eliminado",HttpStatus.OK);    }
 }
 
