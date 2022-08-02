@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/Torneo/Jugadores")
@@ -29,8 +30,13 @@ public class JugadorController {
     }
 
     @GetMapping(path = "/MostrarJugadores")
-    public ResponseEntity<Iterable<Jugador>> listarJugadores(){
-        return ResponseEntity.ok(jugadorRepositorio.findAll());
+    public List<Jugador> listarJugadores(){
+        List<Jugador> jugadores = (List<Jugador>) jugadorRepositorio.findAll();
+        for (Jugador j : jugadores){
+            String pais = j.getPais().getNombre();
+            j.setPaisJugador(pais);
+        }
+        return jugadores;
     }
 }
 /*   */

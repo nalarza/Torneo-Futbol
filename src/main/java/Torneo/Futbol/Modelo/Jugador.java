@@ -15,6 +15,16 @@ public class Jugador {
     private String apellido;
     private String numero;
 
+    private String paisJugador;
+
+    public String getPaisJugador() {
+        return paisJugador;
+    }
+
+    public void setPaisJugador(String paisJugador) {
+        this.paisJugador = paisJugador;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "id_equipo")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
