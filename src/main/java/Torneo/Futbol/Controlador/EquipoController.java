@@ -8,12 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/Torneo/Equipos")
@@ -48,13 +45,19 @@ public class EquipoController {
             equipoRepositorio.save(equipo);
             return new ResponseEntity("Equipo Guardado",HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity("El Pais No Existe",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("El Pais No Existe"+e,HttpStatus.BAD_REQUEST);
         }
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Equipo> eliminarEquipo(@PathVariable Integer id){
+        try{
           equipoRepositorio.deleteById(id);
-        return new ResponseEntity("Equipo Eliminado",HttpStatus.OK);    }
+        return new ResponseEntity("Equipo Eliminado",HttpStatus.OK);  }
+    catch (Exception e){
+        return new ResponseEntity("Equipo No Encontrado, Por Favor Intentelo De Nuevo",HttpStatus.BAD_REQUEST);
+
+    }
+    }
 }
 
 /*

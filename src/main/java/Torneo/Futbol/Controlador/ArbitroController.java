@@ -1,9 +1,7 @@
 package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Arbitro;
-import Torneo.Futbol.Modelo.Equipo;
 import Torneo.Futbol.Repositorio.ArbitroRepositorio;
-import Torneo.Futbol.Repositorio.EquipoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/Torneo/Arbitro")
@@ -47,10 +44,15 @@ public class ArbitroController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Arbitro> eliminarArbitro(@PathVariable Integer id){
-        Optional<Arbitro> arbitroOptional = arbitroRepositorio.findById(id);
-        arbitroRepositorio.delete(arbitroOptional.get());
-        return new ResponseEntity("Arbitro Eliminado",HttpStatus.OK);    }
+      try{
+          arbitroRepositorio.deleteById(id);
+          return new ResponseEntity("Arbitro Eliminado",HttpStatus.OK);
+      }catch (Exception e){
+          return new ResponseEntity("Arbitro No Encontrado, Por Favor Intentelo De Nuevo",HttpStatus.BAD_REQUEST);
+      }
+
+    }
 }
 
 /*
-    }*/
+    */

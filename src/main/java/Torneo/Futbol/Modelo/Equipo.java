@@ -20,13 +20,7 @@ public class Equipo {
 
     private String paisDelEquipo;
 
-    public String getPaisDelEquipo() {
-        return paisDelEquipo;
-    }
 
-    public void setPaisDelEquipo(String paisDelEquipo) {
-        this.paisDelEquipo = paisDelEquipo;
-    }
 
     @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
     private Set<Jugador> jugadores = new HashSet<>();
@@ -36,7 +30,20 @@ public class Equipo {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Pais pais;
 
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_grupo")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Grupo grupo;
+
     public Equipo() {
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
     }
 
     public Equipo(int id, String nombre, String entrenador, String logo, Set<Jugador> jugadores, Pais pais) {
@@ -47,7 +54,13 @@ public class Equipo {
         this.jugadores = jugadores;
         this.pais = pais;
     }
+    public String getPaisDelEquipo() {
+        return paisDelEquipo;
+    }
 
+    public void setPaisDelEquipo(String paisDelEquipo) {
+        this.paisDelEquipo = paisDelEquipo;
+    }
     public Pais getPais() {
         return pais;
     }

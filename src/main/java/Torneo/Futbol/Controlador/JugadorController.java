@@ -20,10 +20,8 @@ public class JugadorController {
     @PostMapping(path = "/AgregarJugador")
     public ResponseEntity<Jugador> guardarJugador(@Valid @RequestBody Jugador jugador){
         try{
-            Jugador jugadorGuardado = jugadorRepositorio.save(jugador);
-            URI ubicacion = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(jugadorGuardado.getId()).toUri();
-            return ResponseEntity.created(ubicacion).body(jugadorGuardado);
+          jugadorRepositorio.save(jugador);
+            return new ResponseEntity("Jugador Guardado",HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity("El Equipo No Existe : "+e, HttpStatus.BAD_REQUEST);
         }
@@ -38,5 +36,16 @@ public class JugadorController {
         }
         return jugadores;
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Jugador> eliminarJugadores(@PathVariable Integer id){
+        try {
+            jugadorRepositorio.deleteById(id);
+            return new ResponseEntity("Jugador Eliminado",HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("Jugador No Encontrado, Por Favor Intentelo De Nuevo",HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
 /*   */
+

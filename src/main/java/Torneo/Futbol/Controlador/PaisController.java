@@ -9,6 +9,7 @@ import Torneo.Futbol.Repositorio.EstadioRepositorio;
 import Torneo.Futbol.Repositorio.JugadorRepositorio;
 import Torneo.Futbol.Repositorio.PaisRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,6 +22,12 @@ import java.util.List;
 @RequestMapping(path = "/Torneo/Paises")
 public class PaisController {
     @Autowired
+    ArbitroRepositorio arbitroRepositorio;
+    @Autowired
+    EstadioRepositorio estadioRepositorio;
+    @Autowired
+    JugadorRepositorio jugadorRepositorio;
+    @Autowired
     PaisRepositorio paisRepositorio;
     @PostMapping(path = "/AgregarPais")
     public ResponseEntity<Pais> guardarPais(@Valid @RequestBody Pais pais){
@@ -29,12 +36,7 @@ public class PaisController {
                     .buildAndExpand(paisGuardado.getId()).toUri();
             return ResponseEntity.created(ubicacion).body(paisGuardado);
     }
-    @Autowired
-    ArbitroRepositorio arbitroRepositorio;
-    @Autowired
-    EstadioRepositorio estadioRepositorio;
-    @Autowired
-    JugadorRepositorio jugadorRepositorio;
+
     @GetMapping(path = "/MostrarPaises")
     public List<Pais> listarPaises(){
         List<Pais> pais = (List<Pais>) paisRepositorio.findAll();
@@ -60,5 +62,14 @@ public class PaisController {
                 }
             }
         return pais;
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Pais> eliminarPais(@PathVariable Integer id){
+        try {
+            paisRepositorio.deleteById(id);
+            return new ResponseEntity("Pais Eliminado", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("Pais No Encontrado, Por Favor Intentelo De Nuevo",HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -47,10 +47,22 @@ public class EstadioController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Estadio> eliminarEstadio(@PathVariable Integer id){
-        Optional<Estadio> estadioOptional = estadioRepositorio.findById(id);
-        estadioRepositorio.delete(estadioOptional.get());
-        return new ResponseEntity("Estadio Eliminado",HttpStatus.OK);    }
+        try {
+            estadioRepositorio.deleteById(id);
+            return new ResponseEntity("Estadio Eliminado", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("Estadio No Encontrado, Por Favor Intentelo De Nuevo",HttpStatus.BAD_REQUEST);
+        }
+    }
 }
 
-/*
-    }*/
+/*    @DeleteMapping("/{id}")
+    public ResponseEntity<Arbitro> eliminarArbitro(@PathVariable Integer id){
+      try{
+          arbitroRepositorio.deleteById(id);
+          return new ResponseEntity("Arbitro Eliminado",HttpStatus.OK);
+      }catch (Exception e){
+          return new ResponseEntity("Arbitro No Encontrado, Por Favor Intentelo De Nuevo",HttpStatus.BAD_REQUEST);
+      }
+
+    */

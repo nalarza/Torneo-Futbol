@@ -12,6 +12,6 @@ public class Estadistica {
     private int id;
     private String descripcion;
     @Column(name = "minuto_de_juego")
-    private String minutoDeJuego;
+    private int minutoDeJuego;
 
 }
