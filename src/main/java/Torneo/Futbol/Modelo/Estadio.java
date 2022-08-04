@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "estadio")
@@ -17,13 +19,8 @@ public class Estadio {
 
     private String paisEstadio;
 
-    public String getPaisEstadio() {
-        return paisEstadio;
-    }
-
-    public void setPaisEstadio(String paisEstadio) {
-        this.paisEstadio = paisEstadio;
-    }
+    @OneToMany(mappedBy = "estadio", cascade = CascadeType.ALL)
+    private Set<Partido> partidos = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "id_pais")
@@ -38,6 +35,25 @@ public class Estadio {
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.pais = pais;
+    }
+
+    public Set<Partido> getPartidos() {
+        return partidos;
+    }
+
+    public void setPartidos(Set<Partido> partidos) {
+        this.partidos = partidos;
+        for (Partido partido:partidos){
+            partido.setEstadio(this);
+        }
+    }
+
+    public String getPaisEstadio() {
+        return paisEstadio;
+    }
+
+    public void setPaisEstadio(String paisEstadio) {
+        this.paisEstadio = paisEstadio;
     }
 
     public int getId() {

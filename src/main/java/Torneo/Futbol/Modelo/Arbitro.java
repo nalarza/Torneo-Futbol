@@ -3,6 +3,8 @@ package Torneo.Futbol.Modelo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -16,13 +18,8 @@ public class Arbitro {
 
     private String paisArbitro;
 
-    public String getPaisArbitro() {
-        return paisArbitro;
-    }
-
-    public void setPaisArbitro(String paisArbitro) {
-        this.paisArbitro = paisArbitro;
-    }
+    @OneToMany(mappedBy = "arbitro", cascade = CascadeType.ALL)
+    private Set<Partido> partidos = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "id_pais")
@@ -36,6 +33,14 @@ public class Arbitro {
         this.id = id;
         this.nombre = nombre;
         this.pais = pais;
+    }
+
+    public String getPaisArbitro() {
+        return paisArbitro;
+    }
+
+    public void setPaisArbitro(String paisArbitro) {
+        this.paisArbitro = paisArbitro;
     }
 
     public int getId() {

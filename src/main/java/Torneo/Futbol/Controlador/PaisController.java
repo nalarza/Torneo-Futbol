@@ -19,12 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/Torneo/Paises")
 public class PaisController {
-    @Autowired
-    ArbitroRepositorio arbitroRepositorio;
-    @Autowired
-    EstadioRepositorio estadioRepositorio;
-    @Autowired
-    JugadorRepositorio jugadorRepositorio;
+
     @Autowired
     PaisRepositorio paisRepositorio;
     @PostMapping(path = "/AgregarPais")

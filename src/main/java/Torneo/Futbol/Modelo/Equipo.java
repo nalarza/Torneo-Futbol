@@ -25,6 +25,10 @@ public class Equipo {
     @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
     private Set<Jugador> jugadores = new HashSet<>();
 
+    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
+    private Set<Partido> partidos = new HashSet<>();
+
+
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "id_pais")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -34,6 +38,8 @@ public class Equipo {
     @JoinColumn(name = "id_grupo")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Grupo grupo;
+
+
 
     public Equipo() {
     }
@@ -103,6 +109,18 @@ public class Equipo {
 
     public Set<Jugador> getJugadores() {
         return jugadores;
+    }
+
+    public Set<Partido> getPartidos() {
+        return partidos;
+    }
+
+
+    public void setPartidos(Set<Partido> partidos) {
+        this.partidos = partidos;
+        for (Partido partido: partidos){
+            partido.setEquipo(this);
+        }
     }
 
     public void setJugadores(Set<Jugador> jugadores) {
