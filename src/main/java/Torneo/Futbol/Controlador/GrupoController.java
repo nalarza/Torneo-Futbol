@@ -2,8 +2,10 @@ package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Equipo;
 import Torneo.Futbol.Modelo.Grupo;
+import Torneo.Futbol.Modelo.Jugador;
 import Torneo.Futbol.Repositorio.EquipoRepositorio;
 import Torneo.Futbol.Repositorio.GrupoRepositorio;
+import Torneo.Futbol.Repositorio.JugadorRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class GrupoController {
     GrupoRepositorio grupoRepositorio;
     @Autowired
     EquipoRepositorio equipoRepositorio;
+    @Autowired
+    JugadorRepositorio jugadorRepositorio;
 
     @GetMapping(path = "/MostrarGrupos")
     public List<Grupo> listarGrupo(){
@@ -31,6 +35,11 @@ public class GrupoController {
                     String paisEquipo = e.getPais().getNombre();
                     e.setPaisDelEquipo(paisEquipo);
                 }
+            }
+            List<Jugador> jugadores = (List<Jugador>) jugadorRepositorio.findAll();
+            for (Jugador j : jugadores){
+                String pais = j.getPais().getNombre();
+                j.setPaisJugador(pais);
             }
         }
         return grupos;

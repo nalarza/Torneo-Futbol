@@ -37,10 +37,8 @@ public class EstadioController {
     @PostMapping(path = "/AgregarEstadio")
     public ResponseEntity<Estadio> guardarEstadio(@Valid @RequestBody Estadio estadio){
         try{
-        Estadio estadioGuardado = estadioRepositorio.save(estadio);
-            URI ubicacion = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(estadioGuardado.getId()).toUri();
-            return ResponseEntity.created(ubicacion).body(estadioGuardado);
+        estadioRepositorio.save(estadio);
+        return new ResponseEntity("Estadio Agregado", HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity("El pais no existe",HttpStatus.BAD_REQUEST);
         }

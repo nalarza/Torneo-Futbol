@@ -28,8 +28,9 @@ public class Pais {
     public Pais() {
     }
 
-  //  public Set<Equipo> getEquipos() {
-    //    return equipos;}
+   /*  public Set<Equipo> getEquipos() {
+       return equipos;
+    }*/
 
 
     public int getId() {

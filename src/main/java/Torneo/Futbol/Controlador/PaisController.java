@@ -1,9 +1,6 @@
 package Torneo.Futbol.Controlador;
 
-import Torneo.Futbol.Modelo.Arbitro;
-import Torneo.Futbol.Modelo.Estadio;
-import Torneo.Futbol.Modelo.Jugador;
-import Torneo.Futbol.Modelo.Pais;
+import Torneo.Futbol.Modelo.*;
 import Torneo.Futbol.Repositorio.ArbitroRepositorio;
 import Torneo.Futbol.Repositorio.EstadioRepositorio;
 import Torneo.Futbol.Repositorio.JugadorRepositorio;
@@ -16,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,30 +36,17 @@ public class PaisController {
     }
 
     @GetMapping(path = "/MostrarPaises")
-    public List<Pais> listarPaises(){
+    public List<PaisResponse> listarPaises(){
         List<Pais> pais = (List<Pais>) paisRepositorio.findAll();
-            for (Pais p:pais){
-                List<Arbitro> arbitros =  arbitroRepositorio.findAll();
-                for (Arbitro a:arbitros){
-                    if (arbitros.size() >= 0) {
-                        String paisarbitro = a.getPais().getNombre();
-                        a.setPaisArbitro(paisarbitro);
-                    }
-                }
-                List<Estadio> estadios =  estadioRepositorio.findAll();
-                for (Estadio e:estadios){
-                    if (estadios.size() >= 0) {
-                        String paisestadio = e.getPais().getNombre();
-                        e.setPaisEstadio(paisestadio);
-                    }
-                }
-                List<Jugador> jugadores = (List<Jugador>) jugadorRepositorio.findAll();
-                for (Jugador j : jugadores){
-                    String paisJugador = j.getPais().getNombre();
-                    j.setPaisJugador(paisJugador);
-                }
-            }
-        return pais;
+        List<PaisResponse> respuestaPais = new ArrayList<>();
+        PaisResponse paisResponse = new PaisResponse();
+
+        for (Pais p:pais){
+                paisResponse.id = p.getId();
+                paisResponse.nombre = p.getNombre();
+                respuestaPais.add(paisResponse);
+        }
+        return respuestaPais;
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Pais> eliminarPais(@PathVariable Integer id){

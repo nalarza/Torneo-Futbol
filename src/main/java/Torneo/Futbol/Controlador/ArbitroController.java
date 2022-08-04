@@ -34,10 +34,8 @@ public class ArbitroController {
     @PostMapping(path = "/AgregarArbitro")
     public ResponseEntity<Arbitro> guardarArbitro(@Valid @RequestBody Arbitro arbitro){
         try{
-        Arbitro arbitroGuardado = arbitroRepositorio.save(arbitro);
-            URI ubicacion = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(arbitroGuardado.getId()).toUri();
-            return ResponseEntity.created(ubicacion).body(arbitroGuardado);
+        arbitroRepositorio.save(arbitro);
+            return new ResponseEntity("Abitro Agregado",HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity("El pais no existe",HttpStatus.BAD_REQUEST);
         }
