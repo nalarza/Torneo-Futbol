@@ -30,9 +30,14 @@ public class Partido {
     private Estadio estadio;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "id_equipo")
+    @JoinColumn(name = "id_equipoUno")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Equipo equipo;
+    private Equipo equipoUno;
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_equipoDos")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Equipo equipoDos;
 
     public Partido() {
     }
@@ -65,18 +70,26 @@ public class Partido {
         return eventos;
     }
 
-    public Equipo getEquipo() {
-        return equipo;
+    public Equipo getEquipoUno() {
+        return equipoUno;
     }
 
-    public void setEquipo(Equipo equipo) {
-        this.equipo = equipo;
+    public void setEquipoUno(Equipo equipoUno) {
+        this.equipoUno = equipoUno;
+    }
+
+    public Equipo getEquipoDos() {
+        return equipoDos;
+    }
+
+    public void setEquipoDos(Equipo equipoDos) {
+        this.equipoDos = equipoDos;
     }
 
     public void setEventos(Set<Evento> eventos) {
         this.eventos = eventos;
         for (Evento evento:eventos){
-            evento.getPartido(this);
+            evento.setPartido(this);
         }
     }
 }

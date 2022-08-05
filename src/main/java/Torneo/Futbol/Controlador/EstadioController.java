@@ -2,8 +2,10 @@ package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Arbitro;
 import Torneo.Futbol.Modelo.Estadio;
+import Torneo.Futbol.Modelo.Pais;
 import Torneo.Futbol.Repositorio.ArbitroRepositorio;
 import Torneo.Futbol.Repositorio.EstadioRepositorio;
+import Torneo.Futbol.Repositorio.PaisRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,15 +54,28 @@ public class EstadioController {
             return new ResponseEntity("Estadio No Encontrado, Por Favor Intentelo De Nuevo",HttpStatus.BAD_REQUEST);
         }
     }
+    @Autowired
+    PaisRepositorio paisRepositorio;
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Estadio> estadiosActualizado(@Valid @RequestBody Estadio estadio,@PathVariable Integer id){
+        Optional<Estadio> estadioOptional = estadioRepositorio.findById(id);
+        Optional<Pais> paisOptional = paisRepositorio.findById(estadio.getPais().getId());
+        if (estadioOptional.isPresent()){
+            if (paisOptional.isPresent()){
+                estadio.setPais(paisOptional.get());
+                estadio.setId(estadioOptional.get().getId());
+                estadioRepositorio.save(estadio);
+            }else{
+                return new ResponseEntity("Pais No Encontrado",HttpStatus.BAD_REQUEST);
+            }
+        }else{
+            return new ResponseEntity("Estadio No Encontrado",HttpStatus.OK);
+        }
+        return new ResponseEntity("Estadio Actualizado",HttpStatus.OK);
+    }
+
 }
 
-/*    @DeleteMapping("/{id}")
-    public ResponseEntity<Arbitro> eliminarArbitro(@PathVariable Integer id){
-      try{
-          arbitroRepositorio.deleteById(id);
-          return new ResponseEntity("Arbitro Eliminado",HttpStatus.OK);
-      }catch (Exception e){
-          return new ResponseEntity("Arbitro No Encontrado, Por Favor Intentelo De Nuevo",HttpStatus.BAD_REQUEST);
-      }
+/*
 
     */

@@ -3,7 +3,6 @@ package Torneo.Futbol.Modelo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,8 +13,9 @@ public class Estadio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_estadio" ,nullable = false,unique = true)
     private int id;
+    private String ciudad;
     private String nombre;
-    private String capacidad;
+    private float capacidad;
 
     private String paisEstadio;
 
@@ -30,11 +30,22 @@ public class Estadio {
     public Estadio() {
     }
 
-    public Estadio(int id, String nombre, String capacidad, Pais pais) {
+    public Estadio(int id, String ciudad, String nombre, float capacidad, String paisEstadio, Set<Partido> partidos, Pais pais) {
         this.id = id;
+        this.ciudad = ciudad;
         this.nombre = nombre;
         this.capacidad = capacidad;
+        this.paisEstadio = paisEstadio;
+        this.partidos = partidos;
         this.pais = pais;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public Set<Partido> getPartidos() {
@@ -72,11 +83,11 @@ public class Estadio {
         this.nombre = nombre;
     }
 
-    public String getCapacidad() {
+    public float getCapacidad() {
         return capacidad;
     }
 
-    public void setCapacidad(String capacidad) {
+    public void setCapacidad(float capacidad) {
         this.capacidad = capacidad;
     }
 

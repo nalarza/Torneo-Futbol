@@ -44,8 +44,8 @@ public class Evento {
         this.eventoDeJuego = eventoDeJuego;
     }
 
-    public Partido getPartido(Partido partido) {
-        return this.partido;
+    public Partido getPartido() {
+        return partido;
     }
 
     public void setPartido(Partido partido) {
@@ -62,4 +62,6 @@ public class Evento {
             estadistica.setEvento(this);
         }
     }
+
+
 }

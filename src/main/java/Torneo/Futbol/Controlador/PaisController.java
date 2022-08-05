@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/Torneo/Paises")
@@ -24,10 +25,8 @@ public class PaisController {
     PaisRepositorio paisRepositorio;
     @PostMapping(path = "/AgregarPais")
     public ResponseEntity<Pais> guardarPais(@Valid @RequestBody Pais pais){
-            Pais paisGuardado = paisRepositorio.save(pais);
-            URI ubicacion = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(paisGuardado.getId()).toUri();
-            return ResponseEntity.created(ubicacion).body(paisGuardado);
+            paisRepositorio.save(pais);
+        return new ResponseEntity("Pais Guardado", HttpStatus.OK);
     }
 
     @GetMapping(path = "/MostrarPaises")
@@ -52,4 +51,24 @@ public class PaisController {
             return new ResponseEntity("Pais No Encontrado, Por Favor Intentelo De Nuevo",HttpStatus.BAD_REQUEST);
         }
     }
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Pais> actualizarPais (@Valid @RequestBody Pais pais,@PathVariable Integer id){
+          Optional<Pais> paisOptional = paisRepositorio.findById(id);
+          if (paisOptional.isPresent()) {
+              pais.setId(paisOptional.get().getId());
+              paisRepositorio.save(pais);
+              return new ResponseEntity("Pais Actualizado", HttpStatus.OK);
+          }else {
+              return new ResponseEntity("Pais No Encontrado",HttpStatus.BAD_REQUEST);
+          }
+    }
 }
+/*  try{
+          Optional<Pais> paisOptional = paisRepositorio.findById(id);
+          pais.setId(paisOptional.get().getId());
+          paisRepositorio.save(pais);
+          return new ResponseEntity("Pais Actualizado",HttpStatus.OK);
+      }catch (Exception e){
+          return new ResponseEntity("Pais No Encontrado",HttpStatus.BAD_REQUEST);
+      }
+ */

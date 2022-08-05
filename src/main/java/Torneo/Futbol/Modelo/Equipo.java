@@ -1,7 +1,6 @@
 package Torneo.Futbol.Modelo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
@@ -25,9 +24,11 @@ public class Equipo {
     @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
     private Set<Jugador> jugadores = new HashSet<>();
 
-    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
-    private Set<Partido> partidos = new HashSet<>();
+    @OneToMany(mappedBy = "equipoUno", cascade = CascadeType.ALL)
+    private Set<Partido> partido = new HashSet<>();
 
+    @OneToMany(mappedBy = "equipoDos", cascade = CascadeType.ALL)
+    private Set<Partido> partidos = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "id_pais")
@@ -111,15 +112,18 @@ public class Equipo {
         return jugadores;
     }
 
-    public Set<Partido> getPartidos() {
-        return partidos;
-    }
-
 
     public void setPartidos(Set<Partido> partidos) {
         this.partidos = partidos;
-        for (Partido partido: partidos){
-            partido.setEquipo(this);
+        for (Partido partido:partidos){
+            partido.setEquipoDos(this);
+        }
+    }
+
+    public void setPartido(Set<Partido> partido) {
+        this.partido = partido;
+        for (Partido partido1:partido){
+            partido1.setEquipoUno(this);
         }
     }
 

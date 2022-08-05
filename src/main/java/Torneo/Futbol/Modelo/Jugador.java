@@ -13,7 +13,7 @@ public class Jugador {
     private int id;
     private String nombre;
     private String apellido;
-    private String numero;
+    private int numero;
 
     private String paisJugador;
 
@@ -70,11 +70,11 @@ public class Jugador {
         this.apellido = apellido;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
