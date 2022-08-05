@@ -20,6 +20,7 @@ public class PartidoController {
 
     @Autowired
     PartidoRepositorio partidoRepositorio;
+
     @PostMapping(path = "/AgregarPartido")
     public ResponseEntity<Partido> guardarPartido(@Valid @RequestBody Partido partido){
             partidoRepositorio.save(partido);
@@ -29,6 +30,17 @@ public class PartidoController {
     @GetMapping(path = "/MostrarPartidos")
     public List<Partido> listarPartidos(){
         List<Partido> partidos = partidoRepositorio.findAll();
+        for (Partido p : partidos){
+            String arbitro =p.getArbitro().getNombre();
+            String equipoLocal = p.getEquipoUno().getNombre();
+            String equpoVisitante = p.getEquipoDos().getNombre();
+            String estadio = p.getEstadio().getNombre();
+
+            p.setNombreDelEstadio(estadio);
+            p.setNombreArbitro(arbitro);
+            p.setLocal(equipoLocal);
+            p.setVisitante(equpoVisitante);
+        }
         return partidos;
     }
     @DeleteMapping("/{id}")

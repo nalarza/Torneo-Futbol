@@ -14,10 +14,14 @@ public class Partido {
     @Column(name = "id_partido" ,unique = true,nullable = false)
     private int Id;
 
+    private String nombreDelEstadio;
+    private String local;
+    private String visitante;
+    private String nombreArbitro;
+
+
     @OneToMany(mappedBy = "partido", cascade = CascadeType.ALL)
     private Set<Evento> eventos = new HashSet<>();
-
-
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "id_arbitro")
@@ -68,6 +72,38 @@ public class Partido {
 
     public Set<Evento> getEventos() {
         return eventos;
+    }
+
+    public String getNombreDelEstadio() {
+        return nombreDelEstadio;
+    }
+
+    public void setNombreDelEstadio(String nombreDelEstadio) {
+        this.nombreDelEstadio = nombreDelEstadio;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public String getVisitante() {
+        return visitante;
+    }
+
+    public void setVisitante(String visitante) {
+        this.visitante = visitante;
+    }
+
+    public String getNombreArbitro() {
+        return nombreArbitro;
+    }
+
+    public void setNombreArbitro(String nombreArbitro) {
+        this.nombreArbitro = nombreArbitro;
     }
 
     public Equipo getEquipoUno() {
