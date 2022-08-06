@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,20 +29,29 @@ public class PartidoController {
     }
 
     @GetMapping(path = "/MostrarPartidos")
-    public List<Partido> listarPartidos(){
+    public List<PartidoRespuesta> listarPartidos(){
+        List<PartidoRespuesta> partidoRespuestas = new ArrayList<>();
         List<Partido> partidos = partidoRepositorio.findAll();
-        for (Partido p : partidos){
-            String arbitro =p.getArbitro().getNombre();
-            String equipoLocal = p.getEquipoUno().getNombre();
-            String equpoVisitante = p.getEquipoDos().getNombre();
-            String estadio = p.getEstadio().getNombre();
+        PartidoRespuesta respuesta = new PartidoRespuesta();
 
-            p.setNombreDelEstadio(estadio);
-            p.setNombreArbitro(arbitro);
-            p.setLocal(equipoLocal);
-            p.setVisitante(equpoVisitante);
+        for (Partido p:partidos){
+            int id =p.getId();
+            String pais = p.getEstadio().getPais().getNombre();
+            String estadio = p.getEstadio().getNombre();
+            String local = p.getEquipoUno().getNombre();
+            String visitante = p.getEquipoDos().getNombre();
+            String arbitro = p.getArbitro().getNombre();
+
+            respuesta.setId(id);
+            respuesta.setPaisDelEstadio(pais);
+            respuesta.setNombreDelEstadio(estadio);
+            respuesta.setEquipoLocal(local);
+            respuesta.setEquipoVisitante(visitante);
+            respuesta.setNombreDelArbitro(arbitro);
+            partidoRespuestas.add(respuesta);
         }
-        return partidos;
+
+        return partidoRespuestas;
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Partido> eliminarPartido(@PathVariable Integer id){

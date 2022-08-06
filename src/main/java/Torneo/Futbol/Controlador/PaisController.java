@@ -32,15 +32,15 @@ public class PaisController {
     @GetMapping(path = "/MostrarPaises")
     public List<PaisResponse> listarPaises(){
         List<Pais> pais = (List<Pais>) paisRepositorio.findAll();
-        List<PaisResponse> respuestaPais = new ArrayList<>();
+        List<PaisResponse> responseList = new ArrayList<>();
         PaisResponse paisResponse = new PaisResponse();
 
         for (Pais p:pais){
                 paisResponse.id = p.getId();
                 paisResponse.nombre = p.getNombre();
-                respuestaPais.add(paisResponse);
+                responseList.add(paisResponse);
         }
-        return respuestaPais;
+        return responseList;
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Pais> eliminarPais(@PathVariable Integer id){
