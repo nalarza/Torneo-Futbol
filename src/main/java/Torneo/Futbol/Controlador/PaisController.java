@@ -35,7 +35,7 @@ public class PaisController {
         List<PaisResponse> responseList = new ArrayList<>();
         PaisResponse paisResponse = new PaisResponse();
 
-        for (Pais p:pais){
+         for (Pais p:pais){
                 paisResponse.id = p.getId();
                 paisResponse.nombre = p.getNombre();
                 responseList.add(paisResponse);
@@ -63,12 +63,6 @@ public class PaisController {
           }
     }
 }
-/*  try{
-          Optional<Pais> paisOptional = paisRepositorio.findById(id);
-          pais.setId(paisOptional.get().getId());
-          paisRepositorio.save(pais);
-          return new ResponseEntity("Pais Actualizado",HttpStatus.OK);
-      }catch (Exception e){
-          return new ResponseEntity("Pais No Encontrado",HttpStatus.BAD_REQUEST);
-      }
+/*
+
  */

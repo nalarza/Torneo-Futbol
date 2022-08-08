@@ -35,20 +35,14 @@ public class PartidoController {
         PartidoRespuesta respuesta = new PartidoRespuesta();
 
         for (Partido p:partidos){
-            int id =p.getId();
-            String pais = p.getEstadio().getPais().getNombre();
-            String estadio = p.getEstadio().getNombre();
-            String local = p.getEquipoUno().getNombre();
-            String visitante = p.getEquipoDos().getNombre();
-            String arbitro = p.getArbitro().getNombre();
-
-            respuesta.setId(id);
-            respuesta.setPaisDelEstadio(pais);
-            respuesta.setNombreDelEstadio(estadio);
-            respuesta.setEquipoLocal(local);
-            respuesta.setEquipoVisitante(visitante);
-            respuesta.setNombreDelArbitro(arbitro);
-            partidoRespuestas.add(respuesta);
+                respuesta.setId(p.getId());
+                respuesta.setPaisDelEstadio(p.getEstadio().getPais().getNombre());
+                respuesta.setNombreDelEstadio(p.getEstadio().getNombre());
+                respuesta.setEquipoLocal(p.getEquipoUno().getNombre());
+                respuesta.setEquipoVisitante(p.getEquipoDos().getNombre());
+                respuesta.setNombreDelArbitro(p.getArbitro().getNombre());
+                respuesta.setPaisDelArbitro(p.getArbitro().getPais().getNombre());
+                partidoRespuestas.add(respuesta);
         }
 
         return partidoRespuestas;

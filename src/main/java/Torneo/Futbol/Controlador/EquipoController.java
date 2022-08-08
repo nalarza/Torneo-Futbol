@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/Torneo/Equipos")
@@ -87,6 +88,11 @@ public class EquipoController {
         }else{
             return new ResponseEntity("Equipo No Encontrado",HttpStatus.BAD_REQUEST);
         }
+    }
+    @GetMapping("/filtrar")
+    public List<Equipo > filtrar(@RequestParam (required = false, name = "nombre") String nombre) {
+        List<Equipo> filtro = listarEquipos().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
+        return filtro;
     }
 }
 

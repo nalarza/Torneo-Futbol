@@ -8,6 +8,9 @@ public class PartidoRespuesta {
     private String EquipoVisitante;
     private String nombreDelArbitro;
     private String PaisDelEstadio;
+    private  String paisDelArbitro;
+
+
 
     public int getId() {
         return id;
@@ -15,6 +18,14 @@ public class PartidoRespuesta {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPaisDelArbitro() {
+        return paisDelArbitro;
+    }
+
+    public void setPaisDelArbitro(String paisDelArbitro) {
+        this.paisDelArbitro = paisDelArbitro;
     }
 
     public String getNombreDelEstadio() {
