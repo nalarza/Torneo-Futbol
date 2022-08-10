@@ -1,6 +1,7 @@
 package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Arbitro;
+import Torneo.Futbol.Modelo.Equipo;
 import Torneo.Futbol.Modelo.Estadio;
 import Torneo.Futbol.Modelo.Pais;
 import Torneo.Futbol.Repositorio.ArbitroRepositorio;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/Torneo/Estadio")
@@ -73,7 +75,11 @@ public class EstadioController {
         }
         return new ResponseEntity("Estadio Actualizado",HttpStatus.OK);
     }
-
+    @GetMapping(path = "/nombreDelEstadio")
+    public List<Estadio> filtrar (@RequestParam (required = false, name = "nombre") String nombre) {
+            List<Estadio> filtro = listarEstadio().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
+            return filtro;
+    }
 }
 
 /*

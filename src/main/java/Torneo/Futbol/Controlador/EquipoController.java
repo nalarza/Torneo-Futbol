@@ -89,12 +89,22 @@ public class EquipoController {
             return new ResponseEntity("Equipo No Encontrado",HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/filtrar")
+    @GetMapping(path = "/nombreDelEquipo")
     public List<Equipo > filtrar(@RequestParam (required = false, name = "nombre") String nombre) {
         List<Equipo> filtro = listarEquipos().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
         return filtro;
     }
+    @GetMapping(path = "/{id}")
+    public ResponseEntity <Equipo> traerPorId(@Valid @PathVariable Integer id){
+        Optional<Equipo> equipoOptional = equipoRepositorio.findById(id);
+        if (equipoOptional.isPresent()){
+            return new ResponseEntity(equipoOptional,HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Equipo No Encontrado",HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
 
 /*
-    }*/
+    */
