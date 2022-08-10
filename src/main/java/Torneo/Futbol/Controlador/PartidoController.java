@@ -98,6 +98,26 @@ public class PartidoController {
               return new ResponseEntity("Partido No Encontrado",HttpStatus.BAD_REQUEST);
           }
     }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Partido> TraerId(@Valid @PathVariable Integer id){
+        Optional<Partido> partidoOptional = partidoRepositorio.findById(id);
+        List<PartidoRespuesta> respuestas = new ArrayList<>();
+        PartidoRespuesta partidoRespuesta = new PartidoRespuesta();
+        if (partidoOptional.isPresent()){
+                partidoRespuesta.setId(partidoOptional.get().getId());
+                partidoRespuesta.setPaisDelArbitro(partidoOptional.get().getArbitro().getPais().getNombre());
+                partidoRespuesta.setPaisDelEstadio(partidoOptional.get().getEstadio().getPais().getNombre());
+                partidoRespuesta.setNombreDelArbitro(partidoOptional.get().getArbitro().getNombre());
+                partidoRespuesta.setEquipoLocal(partidoOptional.get().getEquipoUno().getNombre());
+                partidoRespuesta.setEquipoVisitante(partidoOptional.get().getEquipoDos().getNombre());
+                partidoRespuesta.setNombreDelEstadio(partidoOptional.get().getEstadio().getNombre());
+                respuestas.add(partidoRespuesta);
+            return new ResponseEntity(respuestas,HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Partido No Encontrado",HttpStatus.BAD_REQUEST);
+        }
+    }
 }
 /*
  */
