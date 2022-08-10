@@ -2,6 +2,7 @@ package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Equipo;
 import Torneo.Futbol.Modelo.Jugador;
+import Torneo.Futbol.Modelo.JugadorResponse;
 import Torneo.Futbol.Modelo.Pais;
 import Torneo.Futbol.Repositorio.EquipoRepositorio;
 import Torneo.Futbol.Repositorio.JugadorRepositorio;
@@ -38,9 +39,9 @@ public class JugadorController {
     @GetMapping(path = "/MostrarJugadores")
     public List<Jugador> listarJugadores(){
         List<Jugador> jugadores = (List<Jugador>) jugadorRepositorio.findAll();
+        JugadorResponse jugadorResponse = new JugadorResponse();
         for (Jugador j : jugadores){
-            String pais = j.getPais().getNombre();
-            j.setPaisJugador(pais);
+           jugadorResponse.setPaisJuagdor(j.getPais().getNombre());
         }
         return jugadores;
     }
@@ -78,9 +79,15 @@ public class JugadorController {
             }
     }
     @GetMapping(path = "/nombreDelJugador")
-    public List<Jugador> filtrar(@RequestParam (required = false, name = "nombre") String nombre) {
-        List<Jugador> filtro = listarJugadores().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
-        return filtro;
+    public ResponseEntity<Jugador> filtrar(@RequestParam (required = false, name = "nombre") String nombre,
+    @RequestParam (required = false, name = "apellido") String apellido) {
+        List<Jugador> jugadorOptional = listarJugadores().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre) || x.getApellido().equalsIgnoreCase(apellido)).collect(Collectors.toList());
+
+            if (jugadorOptional.isEmpty()){
+                return new ResponseEntity("Jugador No Encontrado",HttpStatus.BAD_REQUEST);
+            }else{
+                return new ResponseEntity(jugadorOptional,HttpStatus.OK);
+            }
     }
 
 }

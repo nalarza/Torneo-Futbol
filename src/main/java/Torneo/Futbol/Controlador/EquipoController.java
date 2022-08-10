@@ -1,9 +1,6 @@
 package Torneo.Futbol.Controlador;
 
-import Torneo.Futbol.Modelo.Equipo;
-import Torneo.Futbol.Modelo.Grupo;
-import Torneo.Futbol.Modelo.Jugador;
-import Torneo.Futbol.Modelo.Pais;
+import Torneo.Futbol.Modelo.*;
 import Torneo.Futbol.Repositorio.EquipoRepositorio;
 import Torneo.Futbol.Repositorio.GrupoRepositorio;
 import Torneo.Futbol.Repositorio.JugadorRepositorio;
@@ -31,6 +28,7 @@ public class EquipoController {
     @GetMapping(path = "/MostrarEquipos")
     public List<Equipo> listarEquipos(){
         List<Equipo> equipos = (List<Equipo>) equipoRepositorio.findAll();
+        JugadorResponse jugadorResponse = new JugadorResponse();
         for (Equipo e:equipos){
             if (equipos.size() >= 0){
             String paisEquipo = e.getPais().getNombre();
@@ -38,8 +36,7 @@ public class EquipoController {
             }
             List<Jugador> jugadores = (List<Jugador>) jugadorRepositorio.findAll();
             for (Jugador j : jugadores){
-                String pais = j.getPais().getNombre();
-                j.setPaisJugador(pais);
+               jugadorResponse.setPaisJuagdor(j.getPais().getNombre());
             }
         }
         return equipos;

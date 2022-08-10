@@ -15,15 +15,7 @@ public class Jugador {
     private String apellido;
     private int numero;
 
-    private String paisJugador;
 
-    public String getPaisJugador() {
-        return paisJugador;
-    }
-
-    public void setPaisJugador(String paisJugador) {
-        this.paisJugador = paisJugador;
-    }
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "id_equipo")

@@ -1,21 +1,16 @@
 package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.*;
-import Torneo.Futbol.Repositorio.ArbitroRepositorio;
-import Torneo.Futbol.Repositorio.EstadioRepositorio;
-import Torneo.Futbol.Repositorio.JugadorRepositorio;
 import Torneo.Futbol.Repositorio.PaisRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/Torneo/Paises")
@@ -30,17 +25,10 @@ public class PaisController {
     }
 
     @GetMapping(path = "/MostrarPaises")
-    public List<PaisResponse> listarPaises(){
+    public List<Pais> listarPaises(){
         List<Pais> pais = (List<Pais>) paisRepositorio.findAll();
-        List<PaisResponse> responseList = new ArrayList<>();
-        PaisResponse paisResponse = new PaisResponse();
 
-         for (Pais p:pais){
-                paisResponse.id = p.getId();
-                paisResponse.nombre = p.getNombre();
-                responseList.add(paisResponse);
-        }
-        return responseList;
+        return pais;
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Pais> eliminarPais(@PathVariable Integer id){
@@ -61,6 +49,16 @@ public class PaisController {
           }else {
               return new ResponseEntity("Pais No Encontrado",HttpStatus.BAD_REQUEST);
           }
+    }
+    @GetMapping(path = "/nombrePais")
+    public ResponseEntity<Pais> filtrar(@RequestParam (required = false, name = "nombre") String nombre) {
+       List<Pais> PaisOptional = listarPaises().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
+
+        if (PaisOptional.isEmpty()){
+            return new ResponseEntity("Pais No Encontrado",HttpStatus.BAD_REQUEST);
+        }else{
+            return new ResponseEntity(PaisOptional,HttpStatus.OK);
+        }
     }
 }
 /*

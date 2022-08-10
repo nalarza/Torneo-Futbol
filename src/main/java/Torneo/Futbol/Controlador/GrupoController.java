@@ -3,6 +3,7 @@ package Torneo.Futbol.Controlador;
 import Torneo.Futbol.Modelo.Equipo;
 import Torneo.Futbol.Modelo.Grupo;
 import Torneo.Futbol.Modelo.Jugador;
+import Torneo.Futbol.Modelo.JugadorResponse;
 import Torneo.Futbol.Repositorio.EquipoRepositorio;
 import Torneo.Futbol.Repositorio.GrupoRepositorio;
 import Torneo.Futbol.Repositorio.JugadorRepositorio;
@@ -29,7 +30,7 @@ public class GrupoController {
     @GetMapping(path = "/MostrarGrupos")
     public List<Grupo> listarGrupo(){
         List<Grupo> grupos =  grupoRepositorio.findAll();
-
+        JugadorResponse jugadorResponse = new JugadorResponse();
            List<Equipo> equipos = (List<Equipo>) equipoRepositorio.findAll();
             for (Equipo e:equipos){
                 if (equipos.size() >= 0){
@@ -39,8 +40,7 @@ public class GrupoController {
             }
             List<Jugador> jugadores = (List<Jugador>) jugadorRepositorio.findAll();
             for (Jugador j : jugadores){
-                String pais = j.getPais().getNombre();
-                j.setPaisJugador(pais);
+              jugadorResponse.setPaisJuagdor(j.getPais().getNombre());
             }
         return grupos;
     }
