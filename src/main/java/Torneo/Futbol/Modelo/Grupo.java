@@ -1,7 +1,8 @@
 package Torneo.Futbol.Modelo;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "grupo")
@@ -11,6 +12,18 @@ public class Grupo {
     @Column(name = "id_grupo" ,unique = true,nullable = false)
     private int id;
     private String descripcion;
+
+    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL)
+    private Set<Equipo> equipos = new HashSet<>();
+
+    public Grupo() {
+    }
+
+    public Grupo(int id, String descripcion, Set<Equipo> equipos) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.equipos = equipos;
+    }
 
     public int getId() {
         return id;
@@ -28,14 +41,14 @@ public class Grupo {
         this.descripcion = descripcion;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupo")
-    private Collection<Equipo> equipos;
-
-    public Collection<Equipo> getEquipos() {
+    public Set<Equipo> getEquipos() {
         return equipos;
     }
 
-    public void setEquipos(Collection<Equipo> equipos) {
+    public void setEquipos(Set<Equipo> equipos) {
         this.equipos = equipos;
+        for (Equipo equipo:equipos){
+            equipo.setGrupo(this);
+        }
     }
 }

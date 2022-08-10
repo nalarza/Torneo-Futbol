@@ -1,8 +1,8 @@
 package Torneo.Futbol.Modelo;
 
 import javax.persistence.*;
-import java.lang.annotation.Target;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "pais")
@@ -12,6 +12,26 @@ public class Pais {
     @Column(name = "id_pais" ,unique = true,nullable = false)
     private int id;
     private String nombre;
+
+    @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+    private Set<Equipo> equipos = new HashSet<>();
+
+    @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+    private Set<Jugador> jugadores = new HashSet<>();
+
+    @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+    private Set<Arbitro> arbitros = new HashSet<>();
+
+    @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL)
+    private Set<Estadio> estadios = new HashSet<>();
+
+    public Pais() {
+    }
+
+   /*  public Set<Equipo> getEquipos() {
+       return equipos;
+    }*/
+
 
     public int getId() {
         return id;
@@ -29,26 +49,47 @@ public class Pais {
         this.nombre = nombre;
     }
 
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pais")
-    private Collection<Equipo> equipos;
-
-    public Collection<Equipo> getEquipos() {
-        return equipos;
+    public Set<Jugador> getJugadores() {
+        return jugadores;
     }
 
-    public void setEquipos(Collection<Equipo> equipos) {
-        this.equipos = equipos;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pais")
-    private Collection<Arbitro> arbitros;
-
-    public Collection<Arbitro> getArbitros() {
+    public Set<Arbitro> getArbitros() {
         return arbitros;
     }
 
-    public void setArbitros(Collection<Arbitro> arbitros) {
-        this.arbitros = arbitros;
+    public Set<Estadio> getEstadios() {
+        return estadios;
     }
+
+    public void setEstadios(Set<Estadio> estadios) {
+        this.estadios = estadios;
+        for (Estadio estadio:estadios){
+            estadio.setPais(this);
+        }
+    }
+
+    public void setArbitros(Set<Arbitro> arbitros) {
+        this.arbitros = arbitros;
+        for (Arbitro arbitro: arbitros){
+            arbitro.setPais(this);
+        }
+    }
+
+    public void setJugadores(Set<Jugador> jugadores) {
+        this.jugadores = jugadores;
+        for(Jugador jugador:jugadores){
+            jugador.setPais(this);
+        }
+    }
+
+    public void setEquipos(Set<Equipo> equipos) {
+        this.equipos = equipos;
+        for (Equipo equipo: equipos){
+            equipo.setPais(this);
+        }
+    }
+
 }
+/*
+
+*/

@@ -1,5 +1,7 @@
 package Torneo.Futbol.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -12,7 +14,15 @@ public class Estadistica {
     private int id;
     private String descripcion;
     @Column(name = "minuto_de_juego")
-    private String minutoDeJuego;
+    private int minutoDeJuego;
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_evento")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Evento evento;
+
+    public Estadistica() {
+    }
 
     public int getId() {
         return id;
@@ -30,33 +40,19 @@ public class Estadistica {
         this.descripcion = descripcion;
     }
 
-    public String getMinutoDeJuego() {
+    public int getMinutoDeJuego() {
         return minutoDeJuego;
     }
 
-    public void setMinutoDeJuego(String minutoDeJuego) {
+    public void setMinutoDeJuego(int minutoDeJuego) {
         this.minutoDeJuego = minutoDeJuego;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private Partido partidos;
-
-    public Partido getPartidos() {
-        return partidos;
-    }
-
-    public void setPartidos(Partido partidos) {
-        this.partidos = partidos;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estadistica")
-    private Collection<Evento> evento;
-
-    public Collection<Evento> getEvento() {
+    public Evento getEvento() {
         return evento;
     }
 
-    public void setEvento(Collection<Evento> evento) {
+    public void setEvento(Evento evento) {
         this.evento = evento;
     }
 }

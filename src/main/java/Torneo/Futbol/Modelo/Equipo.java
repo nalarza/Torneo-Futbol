@@ -1,11 +1,9 @@
 package Torneo.Futbol.Modelo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import java.util.*;
 
 @Entity
 @Table(name = "equipo")
@@ -14,38 +12,68 @@ public class Equipo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_equipo",unique = true,nullable = false)
     private int id;
-    @Column(name = "nombre")
-    private String nombreDelEquipo;
-
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipo")
-    private List<Jugador> jugadores = new ArrayList<>();
-
-
+    @NotNull
+    private String nombre;
     private String entrenador;
     private String logo;
-    private String nacionalidad;
+
+    private String paisDelEquipo;
+
+
+
+    @OneToMany(mappedBy = "equipo", cascade = CascadeType.ALL)
+    private Set<Jugador> jugadores = new HashSet<>();
+
+    @OneToMany(mappedBy = "equipoUno", cascade = CascadeType.ALL)
+    private Set<Partido> partido = new HashSet<>();
+
+    @OneToMany(mappedBy = "equipoDos", cascade = CascadeType.ALL)
+    private Set<Partido> partidos = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_pais")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Pais pais;
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_grupo")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Grupo grupo;
+
+
 
     public Equipo() {
     }
 
-    public Equipo(String nombreDelEquipo, String entrenador, String logo, String nacionalidad) {
-        this.nombreDelEquipo = nombreDelEquipo;
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    public Equipo(int id, String nombre, String entrenador, String logo, Set<Jugador> jugadores, Pais pais) {
+        this.id = id;
+        this.nombre = nombre;
         this.entrenador = entrenador;
         this.logo = logo;
-        this.nacionalidad = nacionalidad;
+        this.jugadores = jugadores;
+        this.pais = pais;
+    }
+    public String getPaisDelEquipo() {
+        return paisDelEquipo;
     }
 
-    public void setJugadores(Collection<Jugador> jugadores) {
-        this.jugadores = (List<Jugador>) jugadores;
+    public void setPaisDelEquipo(String paisDelEquipo) {
+        this.paisDelEquipo = paisDelEquipo;
+    }
+    public Pais getPais() {
+        return pais;
     }
 
-    public String getNombreDelEquipo() {
-        return nombreDelEquipo;
-    }
-
-    public void setNombreDelEquipo(String nombreDelEquipo) {
-        this.nombreDelEquipo = nombreDelEquipo;
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 
     public int getId() {
@@ -56,12 +84,12 @@ public class Equipo {
         this.id = id;
     }
 
-    public List<Jugador> getJugadores() {
-        return jugadores;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setJugadores(List<Jugador> jugadores) {
-        this.jugadores = jugadores;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getEntrenador() {
@@ -80,45 +108,30 @@ public class Equipo {
         this.logo = logo;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public Set<Jugador> getJugadores() {
+        return jugadores;
     }
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipo")
-    private Collection<Partido> partidos;
-
-    public Collection<Partido> getPartidos() {
-        return partidos;
-    }
-
-    public void setPartidos(Collection<Partido> partidos) {
+    public void setPartidos(Set<Partido> partidos) {
         this.partidos = partidos;
+        for (Partido partido:partidos){
+            partido.setEquipoDos(this);
+        }
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private Pais pais;
-
-    public Pais getPais() {
-        return pais;
+    public void setPartido(Set<Partido> partido) {
+        this.partido = partido;
+        for (Partido partido1:partido){
+            partido1.setEquipoUno(this);
+        }
     }
 
-    public void setPais(Pais pais) {
-        this.pais = pais;
+    public void setJugadores(Set<Jugador> jugadores) {
+        this.jugadores = jugadores;
+        for (Jugador jugador: jugadores){
+            jugador.setEquipo(this);
+        }
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private Grupo grupo;
-
-    public Grupo getGrupo() {
-        return grupo;
-    }
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }
 }

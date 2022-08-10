@@ -1,7 +1,11 @@
 package Torneo.Futbol.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "arbitro")
@@ -11,7 +15,33 @@ public class Arbitro {
     @Column(name = "id_arbitro" ,unique = true,nullable = false)
     private int id;
     private  String nombre;
-    private String procedencia;
+
+    private String paisArbitro;
+
+    @OneToMany(mappedBy = "arbitro", cascade = CascadeType.ALL)
+    private Set<Partido> partidos = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "id_pais")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Pais pais;
+
+    public Arbitro() {
+    }
+
+    public Arbitro(int id, String nombre, Pais pais) {
+        this.id = id;
+        this.nombre = nombre;
+        this.pais = pais;
+    }
+
+    public String getPaisArbitro() {
+        return paisArbitro;
+    }
+
+    public void setPaisArbitro(String paisArbitro) {
+        this.paisArbitro = paisArbitro;
+    }
 
     public int getId() {
         return id;
@@ -29,29 +59,6 @@ public class Arbitro {
         this.nombre = nombre;
     }
 
-    public String getProcedencia() {
-        return procedencia;
-    }
-
-    public void setProcedencia(String procedencia) {
-        this.procedencia = procedencia;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "arbitro")
-    private Collection<Partido> partido;
-
-    public Collection<Partido> getPartido() {
-        return partido;
-    }
-
-    public void setPartido(Collection<Partido> partido) {
-        this.partido = partido;
-    }
-
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private Pais pais;
-
     public Pais getPais() {
         return pais;
     }
@@ -59,6 +66,4 @@ public class Arbitro {
     public void setPais(Pais pais) {
         this.pais = pais;
     }
-
-
 }
