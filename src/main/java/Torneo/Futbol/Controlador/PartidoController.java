@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/Torneo/Partido")
@@ -116,6 +117,15 @@ public class PartidoController {
             return new ResponseEntity(respuestas,HttpStatus.OK);
         }else{
             return new ResponseEntity("Partido No Encontrado",HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(path = "nombreDelEquipo")
+    public ResponseEntity<Partido> filtrar(@RequestParam(required = false,name = "nombre")String nombre){
+        List<PartidoRespuesta> partidoList = listarPartidos().stream().filter(x -> x.getEquipoLocal().equalsIgnoreCase(nombre)).collect(Collectors.toList());
+        if (partidoList.isEmpty()){
+            return new ResponseEntity("Equipo No Encontrado",HttpStatus.BAD_REQUEST);
+        }else   {
+            return new ResponseEntity(partidoList,HttpStatus.OK);
         }
     }
 }

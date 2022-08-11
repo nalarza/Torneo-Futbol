@@ -60,7 +60,15 @@ public class EventoController {
             return new ResponseEntity("Evento No Encontrado",HttpStatus.BAD_REQUEST);
         }
     }
-
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Evento> traerId (@Valid @PathVariable Integer id){
+        Optional<Evento> eventoOptional = eventoRepositorio.findById(id);
+        if (eventoOptional.isPresent()){
+            return new ResponseEntity(eventoOptional,HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Evento No Encontrado",HttpStatus.BAD_REQUEST);
+        }
+    }
 }
 
 /*

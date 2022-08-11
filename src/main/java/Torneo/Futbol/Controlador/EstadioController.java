@@ -1,9 +1,6 @@
 package Torneo.Futbol.Controlador;
 
-import Torneo.Futbol.Modelo.Arbitro;
-import Torneo.Futbol.Modelo.Equipo;
-import Torneo.Futbol.Modelo.Estadio;
-import Torneo.Futbol.Modelo.Pais;
+import Torneo.Futbol.Modelo.*;
 import Torneo.Futbol.Repositorio.ArbitroRepositorio;
 import Torneo.Futbol.Repositorio.EstadioRepositorio;
 import Torneo.Futbol.Repositorio.PaisRepositorio;
@@ -79,6 +76,15 @@ public class EstadioController {
     public List<Estadio> filtrar (@RequestParam (required = false, name = "nombre") String nombre) {
             List<Estadio> filtro = listarEstadio().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
             return filtro;
+    }
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Estadio> traerPorId (@Valid @PathVariable Integer id){
+        Optional<Estadio> estadioOptional = estadioRepositorio.findById(id);
+        if (estadioOptional.isPresent()){
+            return new ResponseEntity(estadioOptional,HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Estadio No Encontrado",HttpStatus.BAD_REQUEST);
+        }
     }
 }
 
