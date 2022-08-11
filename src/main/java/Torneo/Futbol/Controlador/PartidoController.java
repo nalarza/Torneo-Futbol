@@ -30,27 +30,23 @@ public class PartidoController {
     }
 
     @GetMapping(path = "/MostrarPartidos")
-    public List<Partido> listarPartidos(){
+    public List<PartidoRespuesta> listarPartidos(){
+        List<PartidoRespuesta> partidoRespuestas = new ArrayList<>();
         List<Partido> partidos = partidoRepositorio.findAll();
-        List<Estadio> estadios = estadioRepositorio.findAll();
-        List<Arbitro> arbitros = arbitroRepositorio.findAll();
-        List<Equipo> equipos = (List<Equipo>) equipoRepositorio.findAll();
-        for (Partido p:partidos){
-          p.getId();
-          for (Estadio e : estadios){
-              p.setNombreDelEstadio(e.getNombre());
-              p.setPaisDelEstadio(e.getPaisEstadio());
-              for (Arbitro a : arbitros){
-                  p.setNombreDelArbitro(a.getNombre());
-                  p.setPaisDelArbitro(a.getPaisArbitro());
-                  for (Equipo equipo : equipos){
-                      p.setEquipoLocal(equipo.getNombre());
-                  }
-              }
-          }
-        }
+        PartidoRespuesta respuesta = new PartidoRespuesta();
 
-        return partidos;
+        for (Partido p:partidos){
+            respuesta.setId(p.getId());
+            respuesta.setPaisDelEstadio(p.getEstadio().getPais().getNombre());
+            respuesta.setNombreDelEstadio(p.getEstadio().getNombre());
+            respuesta.setEquipoLocal(p.getEquipoUno().getNombre());
+            respuesta.setEquipoVisitante(p.getEquipoDos().getNombre());
+            respuesta.setNombreDelArbitro(p.getArbitro().getNombre());
+            respuesta.setPaisDelArbitro(p.getArbitro().getPais().getNombre());
+            respuesta.setCiudad(p.getEstadio().getCiudad());
+        }
+        partidoRespuestas.add(respuesta);
+        return partidoRespuestas;
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Partido> eliminarPartido(@PathVariable Integer id){
@@ -117,6 +113,7 @@ public class PartidoController {
                 partidoRespuesta.setEquipoLocal(partidoOptional.get().getEquipoUno().getNombre());
                 partidoRespuesta.setEquipoVisitante(partidoOptional.get().getEquipoDos().getNombre());
                 partidoRespuesta.setNombreDelEstadio(partidoOptional.get().getEstadio().getNombre());
+                partidoRespuesta.setCiudad(partidoOptional.get().getEstadio().getCiudad());
                 respuestas.add(partidoRespuesta);
             return new ResponseEntity(respuestas,HttpStatus.OK);
         }else{
