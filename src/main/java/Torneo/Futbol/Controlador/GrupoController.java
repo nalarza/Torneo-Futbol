@@ -76,6 +76,13 @@ public class GrupoController {
     public ResponseEntity<Grupo> traerPorId (@Valid @PathVariable Integer id){
         Optional<Grupo> grupoOptional = grupoRepositorio.findById(id);
         if (grupoOptional.isPresent()){
+            List<Equipo> equipos = (List<Equipo>) equipoRepositorio.findAll();
+            for (Equipo e:equipos){
+                if (equipos.size() >= 0){
+                    String paisEquipo = e.getPais().getNombre();
+                    e.setPaisDelEquipo(paisEquipo);
+                }
+            }
             return new ResponseEntity(grupoOptional,HttpStatus.OK);
         }else{
             return new ResponseEntity("Grupo No Encontrado",HttpStatus.BAD_REQUEST);

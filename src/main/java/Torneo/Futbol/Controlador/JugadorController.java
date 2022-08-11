@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Id;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,10 +41,6 @@ public class JugadorController {
     @GetMapping(path = "/MostrarJugadores")
     public List<Jugador> listarJugadores(){
         List<Jugador> jugadores = (List<Jugador>) jugadorRepositorio.findAll();
-        JugadorResponse jugadorResponse = new JugadorResponse();
-        for (Jugador j : jugadores){
-           jugadorResponse.setPaisJuagdor(j.getPais().getNombre());
-        }
         return jugadores;
     }
     @DeleteMapping("/{id}")
@@ -82,12 +79,12 @@ public class JugadorController {
     @GetMapping(path = "/nombreDelJugador")
     public ResponseEntity<Jugador> filtrar(@RequestParam (required = false, name = "nombre") String nombre, @RequestParam (required = false, name = "apellido") String apellido) {
         List<Jugador> jugadorList = listarJugadores().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre) || x.getApellido().equalsIgnoreCase(apellido)).collect(Collectors.toList());
-
             if (jugadorList.isEmpty()){
                 return new ResponseEntity("Jugador No Encontrado",HttpStatus.BAD_REQUEST);
             }else{
                 return new ResponseEntity(jugadorList,HttpStatus.OK);
             }
+
     }
     @GetMapping(path = "/{id}")
     public ResponseEntity<Jugador> traerPorId (@Valid @PathVariable Integer id){

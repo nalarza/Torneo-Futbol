@@ -81,6 +81,11 @@ public class EstadioController {
     public ResponseEntity<Estadio> traerPorId (@Valid @PathVariable Integer id){
         Optional<Estadio> estadioOptional = estadioRepositorio.findById(id);
         if (estadioOptional.isPresent()){
+            List<Estadio> estadioList = listarEstadio();
+            for (Estadio e : estadioList){
+                String pais = e.getPaisEstadio();
+                estadioOptional.get().setPaisEstadio(pais);
+            }
             return new ResponseEntity(estadioOptional,HttpStatus.OK);
         }else{
             return new ResponseEntity("Estadio No Encontrado",HttpStatus.BAD_REQUEST);

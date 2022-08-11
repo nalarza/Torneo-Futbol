@@ -27,7 +27,6 @@ public class PaisController {
     @GetMapping(path = "/MostrarPaises")
     public List<Pais> listarPaises(){
         List<Pais> pais = (List<Pais>) paisRepositorio.findAll();
-
         return pais;
     }
     @DeleteMapping("/{id}")

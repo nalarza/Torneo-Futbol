@@ -77,6 +77,11 @@ public class ArbitroController {
     public ResponseEntity<Arbitro> traerPorId (@Valid @PathVariable Integer id){
         Optional<Arbitro> arbitroOptional = arbitroRepositorio.findById(id);
         if (arbitroOptional.isPresent()){
+            List<Arbitro> arbitroList = listarArbitros();
+            for (Arbitro a : arbitroList){
+                String pais = a.getPaisArbitro();
+                arbitroOptional.get().setPaisArbitro(pais);
+            }
             return new ResponseEntity(arbitroOptional,HttpStatus.OK);
         }else{
             return new ResponseEntity("Arbitro No Encontrado",HttpStatus.BAD_REQUEST);

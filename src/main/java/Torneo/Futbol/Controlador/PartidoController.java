@@ -30,23 +30,27 @@ public class PartidoController {
     }
 
     @GetMapping(path = "/MostrarPartidos")
-    public List<PartidoRespuesta> listarPartidos(){
-        List<PartidoRespuesta> partidoRespuestas = new ArrayList<>();
+    public List<Partido> listarPartidos(){
         List<Partido> partidos = partidoRepositorio.findAll();
-        PartidoRespuesta respuesta = new PartidoRespuesta();
-
+        List<Estadio> estadios = estadioRepositorio.findAll();
+        List<Arbitro> arbitros = arbitroRepositorio.findAll();
+        List<Equipo> equipos = (List<Equipo>) equipoRepositorio.findAll();
         for (Partido p:partidos){
-                respuesta.setId(p.getId());
-                respuesta.setPaisDelEstadio(p.getEstadio().getPais().getNombre());
-                respuesta.setNombreDelEstadio(p.getEstadio().getNombre());
-                respuesta.setEquipoLocal(p.getEquipoUno().getNombre());
-                respuesta.setEquipoVisitante(p.getEquipoDos().getNombre());
-                respuesta.setNombreDelArbitro(p.getArbitro().getNombre());
-                respuesta.setPaisDelArbitro(p.getArbitro().getPais().getNombre());
-                partidoRespuestas.add(respuesta);
+          p.getId();
+          for (Estadio e : estadios){
+              p.setNombreDelEstadio(e.getNombre());
+              p.setPaisDelEstadio(e.getPaisEstadio());
+              for (Arbitro a : arbitros){
+                  p.setNombreDelArbitro(a.getNombre());
+                  p.setPaisDelArbitro(a.getPaisArbitro());
+                  for (Equipo equipo : equipos){
+                      p.setEquipoLocal(equipo.getNombre());
+                  }
+              }
+          }
         }
 
-        return partidoRespuestas;
+        return partidos;
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Partido> eliminarPartido(@PathVariable Integer id){
