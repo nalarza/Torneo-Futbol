@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/Torneo/Partido")
@@ -33,20 +34,20 @@ public class PartidoController {
         List<PartidoRespuesta> partidoRespuestas = new ArrayList<>();
         List<Partido> partidos = partidoRepositorio.findAll();
         PartidoRespuesta respuesta = new PartidoRespuesta();
-
         for (Partido p:partidos){
-                respuesta.setId(p.getId());
-                respuesta.setPaisDelEstadio(p.getEstadio().getPais().getNombre());
-                respuesta.setNombreDelEstadio(p.getEstadio().getNombre());
-                respuesta.setEquipoLocal(p.getEquipoUno().getNombre());
-                respuesta.setEquipoVisitante(p.getEquipoDos().getNombre());
-                respuesta.setNombreDelArbitro(p.getArbitro().getNombre());
-                respuesta.setPaisDelArbitro(p.getArbitro().getPais().getNombre());
-                partidoRespuestas.add(respuesta);
+            respuesta.setId(p.getId());
+            respuesta.setPaisDelEstadio(p.getEstadio().getPais().getNombre());
+            respuesta.setNombreDelEstadio(p.getEstadio().getNombre());
+            respuesta.setEquipoLocal(p.getEquipoUno().getNombre());
+            respuesta.setEquipoVisitante(p.getEquipoDos().getNombre());
+            respuesta.setNombreDelArbitro(p.getArbitro().getNombre());
+            respuesta.setPaisDelArbitro(p.getArbitro().getPais().getNombre());
+            respuesta.setCiudad(p.getEstadio().getCiudad());
         }
-
+        partidoRespuestas.add(respuesta);
         return partidoRespuestas;
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Partido> eliminarPartido(@PathVariable Integer id){
         try {
@@ -97,6 +98,36 @@ public class PartidoController {
           }else {
               return new ResponseEntity("Partido No Encontrado",HttpStatus.BAD_REQUEST);
           }
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Partido> TraerId(@Valid @PathVariable Integer id){
+        Optional<Partido> partidoOptional = partidoRepositorio.findById(id);
+        List<PartidoRespuesta> respuestas = new ArrayList<>();
+        PartidoRespuesta partidoRespuesta = new PartidoRespuesta();
+        if (partidoOptional.isPresent()){
+                partidoRespuesta.setId(partidoOptional.get().getId());
+                partidoRespuesta.setPaisDelArbitro(partidoOptional.get().getArbitro().getPais().getNombre());
+                partidoRespuesta.setPaisDelEstadio(partidoOptional.get().getEstadio().getPais().getNombre());
+                partidoRespuesta.setNombreDelArbitro(partidoOptional.get().getArbitro().getNombre());
+                partidoRespuesta.setEquipoLocal(partidoOptional.get().getEquipoUno().getNombre());
+                partidoRespuesta.setEquipoVisitante(partidoOptional.get().getEquipoDos().getNombre());
+                partidoRespuesta.setNombreDelEstadio(partidoOptional.get().getEstadio().getNombre());
+                partidoRespuesta.setCiudad(partidoOptional.get().getEstadio().getCiudad());
+                respuestas.add(partidoRespuesta);
+            return new ResponseEntity(respuestas,HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Partido No Encontrado",HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(path = "nombreDelEquipo")
+    public ResponseEntity<Partido> filtrar(@RequestParam(required = false,name = "nombre")String nombre){
+        List<PartidoRespuesta> partidoList = listarPartidos().stream().filter(x -> x.getEquipoLocal().equalsIgnoreCase(nombre)).collect(Collectors.toList());
+        if (partidoList.isEmpty()){
+            return new ResponseEntity("Equipo No Encontrado",HttpStatus.BAD_REQUEST);
+        }else   {
+            return new ResponseEntity(partidoList,HttpStatus.OK);
+        }
     }
 }
 /*

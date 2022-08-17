@@ -9,8 +9,16 @@ public class PartidoRespuesta {
     private String nombreDelArbitro;
     private String PaisDelEstadio;
     private  String paisDelArbitro;
+    private String Ciudad;
 
 
+    public String getCiudad() {
+        return Ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        Ciudad = ciudad;
+    }
 
     public int getId() {
         return id;

@@ -14,6 +14,7 @@ public class Partido {
     @Column(name = "id_partido" ,unique = true,nullable = false)
     private int Id;
 
+
     @OneToMany(mappedBy = "partido", cascade = CascadeType.ALL)
     private Set<Evento> eventos = new HashSet<>();
 

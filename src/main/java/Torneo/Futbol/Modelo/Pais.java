@@ -1,7 +1,9 @@
 package Torneo.Futbol.Modelo;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,10 +30,6 @@ public class Pais {
     public Pais() {
     }
 
-   /*  public Set<Equipo> getEquipos() {
-       return equipos;
-    }*/
-
 
     public int getId() {
         return id;
@@ -49,17 +47,6 @@ public class Pais {
         this.nombre = nombre;
     }
 
-    public Set<Jugador> getJugadores() {
-        return jugadores;
-    }
-
-    public Set<Arbitro> getArbitros() {
-        return arbitros;
-    }
-
-    public Set<Estadio> getEstadios() {
-        return estadios;
-    }
 
     public void setEstadios(Set<Estadio> estadios) {
         this.estadios = estadios;
