@@ -28,15 +28,10 @@ public class EquipoController {
     @GetMapping(path = "/MostrarEquipos")
     public List<Equipo> listarEquipos(){
         List<Equipo> equipos = (List<Equipo>) equipoRepositorio.findAll();
-        JugadorResponse jugadorResponse = new JugadorResponse();
         for (Equipo e:equipos){
             if (equipos.size() >= 0){
             String paisEquipo = e.getPais().getNombre();
             e.setPaisDelEquipo(paisEquipo);
-            }
-            List<Jugador> jugadores = (List<Jugador>) jugadorRepositorio.findAll();
-            for (Jugador j : jugadores){
-               jugadorResponse.setPaisJuagdor(j.getPais().getNombre());
             }
         }
         return equipos;
@@ -87,18 +82,31 @@ public class EquipoController {
         }
     }
     @GetMapping(path = "/nombreDelEquipo")
-    public List<Equipo > filtrar(@RequestParam (required = false, name = "nombre") String nombre) {
+    public ResponseEntity<Equipo > filtrar(@RequestParam (required = false, name = "nombre") String nombre) {
         List<Equipo> filtro = listarEquipos().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
-        return filtro;
+
+        if (filtro.isEmpty()){
+            return new ResponseEntity("No Se Encuentra El Equipo",HttpStatus.BAD_REQUEST);
+        }else{
+            return new ResponseEntity(filtro,HttpStatus.OK);
+        }
+
     }
     @GetMapping(path = "/{id}")
     public ResponseEntity <Equipo> traerPorId(@Valid @PathVariable Integer id){
-        Optional<Equipo> equipoOptional = equipoRepositorio.findById(id);
-        if (equipoOptional.isPresent()){
-            return new ResponseEntity(equipoOptional,HttpStatus.OK);
-        }else{
+        Optional<Equipo> equipos = equipoRepositorio.findById(id);
+        if (equipos.isEmpty()){
             return new ResponseEntity("Equipo No Encontrado",HttpStatus.BAD_REQUEST);
+
+        }else{
+            List<Equipo> equipoList = listarEquipos();
+            for (Equipo e : equipoList){
+                String pais = e.getPaisDelEquipo();
+                equipos.get().setPaisDelEquipo(pais);
+            }
+            return new ResponseEntity(equipos,HttpStatus.OK);
         }
+
     }
 
 }

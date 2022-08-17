@@ -1,6 +1,7 @@
 package Torneo.Futbol.Controlador;
 
 import Torneo.Futbol.Modelo.Arbitro;
+import Torneo.Futbol.Modelo.Jugador;
 import Torneo.Futbol.Modelo.Pais;
 import Torneo.Futbol.Repositorio.ArbitroRepositorio;
 import Torneo.Futbol.Repositorio.PaisRepositorio;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/Torneo/Arbitro")
@@ -69,6 +71,29 @@ public class ArbitroController {
         }else {
           return new ResponseEntity("Arbitro No Encontrado",HttpStatus.BAD_REQUEST);
 
+        }
+    }
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Arbitro> traerPorId (@Valid @PathVariable Integer id){
+        Optional<Arbitro> arbitroOptional = arbitroRepositorio.findById(id);
+        if (arbitroOptional.isPresent()){
+            List<Arbitro> arbitroList = listarArbitros();
+            for (Arbitro a : arbitroList){
+                String pais = a.getPaisArbitro();
+                arbitroOptional.get().setPaisArbitro(pais);
+            }
+            return new ResponseEntity(arbitroOptional,HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Arbitro No Encontrado",HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(path = "/nombreDelArbitro")
+    public ResponseEntity<Arbitro> filtrar(@RequestParam(required = false,name = "nombre")String nombre){
+        List<Arbitro> arbitroList = listarArbitros().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
+        if (arbitroList.isEmpty()){
+            return  new ResponseEntity("Arbitro No Encontrado",HttpStatus.OK);
+        }else{
+            return  new ResponseEntity(arbitroList,HttpStatus.OK);
         }
     }
 }

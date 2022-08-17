@@ -27,7 +27,6 @@ public class PaisController {
     @GetMapping(path = "/MostrarPaises")
     public List<Pais> listarPaises(){
         List<Pais> pais = (List<Pais>) paisRepositorio.findAll();
-
         return pais;
     }
     @DeleteMapping("/{id}")
@@ -58,6 +57,15 @@ public class PaisController {
             return new ResponseEntity("Pais No Encontrado",HttpStatus.BAD_REQUEST);
         }else{
             return new ResponseEntity(PaisOptional,HttpStatus.OK);
+        }
+    }
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Pais> traerPorId (@Valid @PathVariable Integer id){
+        Optional<Pais> paisOptional = paisRepositorio.findById(id);
+        if (paisOptional.isPresent()){
+            return new ResponseEntity(paisOptional,HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Pais No Encontrado",HttpStatus.BAD_REQUEST);
         }
     }
 }

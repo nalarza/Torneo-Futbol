@@ -63,6 +63,15 @@ public class EstadisticaController {
             return new ResponseEntity("Estadistica Actualizada",HttpStatus.OK);
 
     }
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Estadistica> traerId(@Valid @PathVariable Integer id){
+        Optional<Estadistica> estadisticaOptional = estadisticaRepositorio.findById(id);
+        if (estadisticaOptional.isPresent()){
+            return new ResponseEntity(estadisticaOptional,HttpStatus.OK);
+        }else   {
+            return  new ResponseEntity("EStadistica No Encontrada",HttpStatus.BAD_REQUEST);
+        }
+    }
 }
 
 /*

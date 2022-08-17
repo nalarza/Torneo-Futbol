@@ -15,7 +15,7 @@ public class Estadio {
     private int id;
     private String ciudad;
     private String nombre;
-    private float capacidad;
+    private long capacidad;
 
     private String paisEstadio;
 
@@ -30,7 +30,7 @@ public class Estadio {
     public Estadio() {
     }
 
-    public Estadio(int id, String ciudad, String nombre, float capacidad, String paisEstadio, Set<Partido> partidos, Pais pais) {
+    public Estadio(int id, String ciudad, String nombre, long capacidad, String paisEstadio, Set<Partido> partidos, Pais pais) {
         this.id = id;
         this.ciudad = ciudad;
         this.nombre = nombre;
@@ -87,7 +87,7 @@ public class Estadio {
         return capacidad;
     }
 
-    public void setCapacidad(float capacidad) {
+    public void setCapacidad(long capacidad) {
         this.capacidad = capacidad;
     }
 

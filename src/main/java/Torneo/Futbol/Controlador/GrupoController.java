@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/Torneo/Grupos")
@@ -71,7 +72,31 @@ public class GrupoController {
             return new ResponseEntity("Grupo No Encontrado",HttpStatus.BAD_REQUEST);
         }
     }
-
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Grupo> traerPorId (@Valid @PathVariable Integer id){
+        Optional<Grupo> grupoOptional = grupoRepositorio.findById(id);
+        if (grupoOptional.isPresent()){
+            List<Equipo> equipos = (List<Equipo>) equipoRepositorio.findAll();
+            for (Equipo e:equipos){
+                if (equipos.size() >= 0){
+                    String paisEquipo = e.getPais().getNombre();
+                    e.setPaisDelEquipo(paisEquipo);
+                }
+            }
+            return new ResponseEntity(grupoOptional,HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Grupo No Encontrado",HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(path = "nombreDelGrupo")
+    public ResponseEntity<Grupo> filtrar(@RequestParam(required = false,name = "nombre")String nombre){
+        List<Grupo> grupoList = listarGrupo().stream().filter(x -> x.getDescripcion().equalsIgnoreCase(nombre)).collect(Collectors.toList());
+        if (grupoList.isEmpty()){
+            return new ResponseEntity("Grupo No Encontrado",HttpStatus.BAD_REQUEST);
+        }else{
+            return new ResponseEntity(grupoList,HttpStatus.OK);
+        }
+    }
 }
 
 /*
