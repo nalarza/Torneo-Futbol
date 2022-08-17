@@ -34,7 +34,6 @@ public class PartidoController {
         List<PartidoRespuesta> partidoRespuestas = new ArrayList<>();
         List<Partido> partidos = partidoRepositorio.findAll();
         PartidoRespuesta respuesta = new PartidoRespuesta();
-
         for (Partido p:partidos){
             respuesta.setId(p.getId());
             respuesta.setPaisDelEstadio(p.getEstadio().getPais().getNombre());
@@ -48,6 +47,7 @@ public class PartidoController {
         partidoRespuestas.add(respuesta);
         return partidoRespuestas;
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Partido> eliminarPartido(@PathVariable Integer id){
         try {
