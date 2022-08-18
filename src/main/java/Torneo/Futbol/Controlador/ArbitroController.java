@@ -40,8 +40,8 @@ public class ArbitroController {
     @PostMapping(path = "/AgregarArbitro")
     public ResponseEntity<Arbitro> guardarArbitro(@Valid @RequestBody Arbitro arbitro){
         try{
-        arbitroRepositorio.save(arbitro);
-            return new ResponseEntity("Abitro Agregado",HttpStatus.OK);
+            arbitroRepositorio.save(arbitro);
+            return new ResponseEntity("Arbitro Agregado",HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity("El pais no existe",HttpStatus.BAD_REQUEST);
         }
@@ -64,7 +64,7 @@ public class ArbitroController {
                 arbitro.setPais(paisOptional.get());
                 arbitro.setId(arbitroOptional.get().getId());
                 arbitroRepositorio.save(arbitro);
-                return new ResponseEntity("Arbitro Actualizado",HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Arbitro Actualizado",HttpStatus.OK);
             }else {
                 return new ResponseEntity("Pais No Encontrado",HttpStatus.BAD_REQUEST);
             }
