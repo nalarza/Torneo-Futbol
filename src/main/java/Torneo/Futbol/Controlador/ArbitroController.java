@@ -91,7 +91,7 @@ public class ArbitroController {
     public ResponseEntity<Arbitro> filtrar(@RequestParam(required = false,name = "nombre")String nombre){
         List<Arbitro> arbitroList = listarArbitros().stream().filter(x -> x.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
         if (arbitroList.isEmpty()){
-            return  new ResponseEntity("Arbitro No Encontrado",HttpStatus.OK);
+            return  new ResponseEntity("Arbitro No Encontrado",HttpStatus.BAD_REQUEST);
         }else{
             return  new ResponseEntity(arbitroList,HttpStatus.OK);
         }
