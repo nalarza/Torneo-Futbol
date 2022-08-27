@@ -1,9 +1,7 @@
 package Torneo.Futbol.Modelo;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -43,8 +41,8 @@ public class Pais {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre() {
+        this.nombre = this.nombre;
     }
 
 
@@ -75,6 +73,7 @@ public class Pais {
             equipo.setPais(this);
         }
     }
+
 
 }
 /*
