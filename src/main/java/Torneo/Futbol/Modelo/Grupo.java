@@ -25,6 +25,10 @@ public class Grupo {
         this.equipos = equipos;
     }
 
+    public Grupo(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public int getId() {
         return id;
     }

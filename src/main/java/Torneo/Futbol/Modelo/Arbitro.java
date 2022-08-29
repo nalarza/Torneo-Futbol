@@ -35,6 +35,10 @@ public class Arbitro {
         this.pais = pais;
     }
 
+    public Arbitro(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getPaisArbitro() {
         return paisArbitro;
     }

@@ -45,6 +45,13 @@ public class Equipo {
     public Equipo() {
     }
 
+    public Equipo(String nombre, String entrenador, String logo, String paisDelEquipo) {
+        this.nombre = nombre;
+        this.entrenador = entrenador;
+        this.logo = logo;
+        this.paisDelEquipo = paisDelEquipo;
+    }
+
     public Grupo getGrupo() {
         return grupo;
     }
